@@ -1,0 +1,63 @@
+<nav class="navbar navbar-inverse">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+        aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Dating App</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+          <a href="#"> Matches </a>
+        </li>
+        <li>
+          <a href="#"> List</a>
+        </li>
+        <li>
+          <a href="#"> Messages</a>
+        </li>
+      </ul>
+      <ng-container *ngIf="!isLoggedIn">
+        <form [formGroup]="userLoginForm" class="navbar-form navbar-right">
+          <div class="form-group" formGroupName="userLogin">
+            <div class="form-group">
+              <input type="text" formControlName="username" placeholder="Email" class="form-control">
+            </div>
+            <div class="form-group">
+              <input type="password" formControlName="password" placeholder="Password" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-success" (click)="signIn(userLoginForm.get('userLogin').value)" [disabled]="!userLoginForm.valid">Sign in</button>
+          </div>
+        </form>
+      </ng-container>
+      <ng-container *ngIf="isLoggedIn">
+        <ul class="nav navbar-nav navbar-right">
+          <li>
+            <a (click)="logOut()">Logout</a>
+          </li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{welcomeUser}}
+              <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+              <li>
+                <a href="#">
+                  <i class="fa fa-user" aria-hidden="true"></i>Edit Profile</a>
+              </li>
+              <li>
+                <a (click)="logOut()">
+                  <i class="fa fa-sign-out" aria-hidden="true"></i>Logout</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </ng-container>
+    </div>
+    <!--/.navbar-collapse -->
+  </div>
+</nav>
