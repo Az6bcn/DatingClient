@@ -24,15 +24,14 @@ export class NavComponent implements OnInit {
 
   signIn(userLoginFormValue: Login) {
     console.log(userLoginFormValue);
-    this.authService.login(userLoginFormValue).subscribe(
-      (response: boolean) => {
+    this.authService
+      .login(userLoginFormValue)
+      .subscribe((response: boolean) => {
         if (response) {
           this.isLoggedIn = response;
           this.welcomeUser = `Welcome ${userLoginFormValue.username}`;
         }
-      },
-      error => console.log("ERRRRRRRRRRRRRRR : ", error)
-    );
+      });
   }
 
   logOut() {

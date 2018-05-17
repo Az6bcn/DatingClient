@@ -1,3 +1,5 @@
+import { AppError } from "./../Errors/AppError";
+import { ForbiddenError } from "./../Errors/ForbiddenError";
 import { RegisterModel } from "./../Model/RegisterModel";
 import { Observable } from "rxjs/Observable";
 import {
@@ -9,6 +11,9 @@ import { Injectable } from "@angular/core";
 import { Login } from "../Model/Login";
 import { map, catchError } from "rxjs/operators";
 import "rxjs/add/observable/throw";
+import { BadRequestError } from "../Errors/BadRequestError";
+import { NotFoundError } from "../Errors/NotFoundError";
+import { UnAuthorizedError } from "../Errors/UnAuthorizedError";
 
 @Injectable()
 export class AuthService {
@@ -35,7 +40,9 @@ export class AuthService {
   register(model: RegisterModel) {
     const url = `${this.baseUrl}/${this.Register}`;
 
-    return this.http.post(url, model, this.getRequestOptions());
+    return this.http
+      .post(url, model, this.getRequestOptions())
+      .pipe(catchError(this.handleError));
   }
 
   private getRequestOptions() {
@@ -53,21 +60,33 @@ export class AuthService {
   }
 
   private handleError(error: HttpErrorResponse) {
-    if (error.error instanceof ErrorEvent) {
-      // A client-side or network error occurred. Handle it accordingly.
-      console.error("An error occurred:", error.error.message);
-    }
-    if (error.status === 500) {
+    /* Handling Expected Error (Imagine we sending invalid data to the Server response will be Bad Request, status code 400)
+              check the status of the response  */
+    if (error.status === 400) {
       // return Observable that includes an error and throw an error specific to our application domain type error (BadRequestError)
-      return Observable.throw("Internal Server Error");
-    } else {
-      // The backend returned an unsuccessful response code.
-      // The response body may contain clues as to what went wrong,
-      console.error(
-        `Backend returned code ${error.status}, ` + `body was: ${error.error}`
-      );
+      return Observable.throw(new BadRequestError(error));
     }
-    // return an observable with a user-facing error message
-    return Observable.throw("Something bad happened; please try again later.");
+
+    /* Handling Expected Error (The post might already been deleted and the Server response will be Not found, status code 404):
+                check the status of the response )*/
+    if (error.status === 404) {
+      // return Observable that includes an error and throw an error specific to our application  domain type error (NotFoundError)
+      return Observable.throw(new NotFoundError());
+    }
+
+    if (error.status === 401) {
+      // return Observable that includes an error and throw an error specific to our application domain type error (UnAuthoriseError)
+      return Observable.throw(new UnAuthorizedError(error));
+    }
+
+    /* 403 ==> Forbidden, credentials correct, authentification correct but maybe
+                  people with user role can't access/restricted from the resource */
+    if (error.status === 403) {
+      // return Observable that includes an error and throw an error specific to our application  domain type error (NotFoundError)
+      return Observable.throw(new ForbiddenError(error));
+    }
+
+    // return Observable that includes an error and throw an error (unknown) to our application  domain type error (AppError)
+    return Observable.throw(new AppError(error));
   }
 }
