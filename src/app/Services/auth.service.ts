@@ -1,25 +1,25 @@
-import { AppError } from "./../Errors/AppError";
-import { ForbiddenError } from "./../Errors/ForbiddenError";
-import { RegisterModel } from "./../Model/RegisterModel";
-import { Observable } from "rxjs/Observable";
+import { AppError } from './../Errors/AppError';
+import { ForbiddenError } from './../Errors/ForbiddenError';
+import { RegisterModel } from './../Model/RegisterModel';
+import { Observable } from 'rxjs/Observable';
 import {
   HttpClient,
   HttpHeaders,
   HttpErrorResponse
-} from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { Login } from "../Model/Login";
-import { map, catchError } from "rxjs/operators";
-import "rxjs/add/observable/throw";
-import { BadRequestError } from "../Errors/BadRequestError";
-import { NotFoundError } from "../Errors/NotFoundError";
-import { UnAuthorizedError } from "../Errors/UnAuthorizedError";
+} from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Login } from '../Model/Login';
+import { map, catchError } from 'rxjs/operators';
+import 'rxjs/add/observable/throw';
+import { BadRequestError } from '../Errors/BadRequestError';
+import { NotFoundError } from '../Errors/NotFoundError';
+import { UnAuthorizedError } from '../Errors/UnAuthorizedError';
 
 @Injectable()
 export class AuthService {
-  private baseUrl = "http://localhost:50440/api";
-  private Login = "auth/login";
-  private Register = "auth/register";
+  private baseUrl = 'http://172.16.172.129:5000/api';
+  private Login = 'auth/login';
+  private Register = 'auth/register';
   constructor(private readonly http: HttpClient) {}
 
   login(model: Login) {
@@ -29,7 +29,7 @@ export class AuthService {
       map((response: any) => {
         const user = response;
         if (user) {
-          localStorage.setItem("Token", user.tokenString);
+          localStorage.setItem('Token', user.tokenString);
           return true;
         }
       }),
@@ -49,10 +49,10 @@ export class AuthService {
     // request options for API
     const httpRequestOptions = {
       headers: new HttpHeaders({
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Headers": "Content-Type",
-        "Access-Control-Allow-Methods": "  POST",
-        "Access-Control-Allow-Origin": "*"
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Access-Control-Allow-Methods': '  POST',
+        'Access-Control-Allow-Origin': '*'
       })
     };
 

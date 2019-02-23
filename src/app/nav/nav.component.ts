@@ -1,12 +1,14 @@
-import { AuthService } from "./../Services/auth.service";
-import { Login } from "./../Model/Login";
-import { Component, OnInit } from "@angular/core";
-import { FormBuilder, Validators, FormGroup } from "@angular/forms";
+import { AppError } from './../Errors/AppError';
+import { AuthService } from './../Services/auth.service';
+import { Login } from './../Model/Login';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { UnAuthorizedError } from '../Errors/UnAuthorizedError';
 
 @Component({
-  selector: "app-nav",
-  templateUrl: "./nav.component.html",
-  styleUrls: ["./nav.component.css"]
+  selector: 'app-nav',
+  templateUrl: './nav.component.html',
+  styleUrls: ['./nav.component.css']
 })
 export class NavComponent implements OnInit {
   userLoginForm: FormGroup;
@@ -31,13 +33,20 @@ export class NavComponent implements OnInit {
           this.isLoggedIn = response;
           this.welcomeUser = `Welcome ${userLoginFormValue.username}`;
         }
+      },
+      (error: AppError) => {
+        if (error instanceof UnAuthorizedError) {
+          return alert('Please Register to login');
+        } else {
+        alert('Something went worng... Please try again in few minutes');
+        }
       });
   }
 
   logOut() {
-    localStorage.removeItem("Token");
+    localStorage.removeItem('Token');
     this.isLoggedIn = false;
-    alert("loggedOut");
+    alert('loggedOut');
   }
   private loadForm(builder: FormBuilder) {
     this.userLoginForm = NavComponent.buildFormGroup(builder);
@@ -47,7 +56,7 @@ export class NavComponent implements OnInit {
    * Check if there's any user logged-in
    */
   checkIfUserLoggedIn(): boolean {
-    const token = localStorage.getItem("Token");
+    const token = localStorage.getItem('Token');
     return !!token;
   }
 
@@ -55,8 +64,8 @@ export class NavComponent implements OnInit {
   private static buildFormGroup(builder: FormBuilder) {
     return builder.group({
       userLogin: builder.group({
-        username: ["", [Validators.required]],
-        password: ["", Validators.required]
+        username: ['', [Validators.required]],
+        password: ['', Validators.required]
       })
     });
   }
