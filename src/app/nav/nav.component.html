@@ -1,55 +1,53 @@
-<nav class="navbar navbar-inverse">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
   <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false"
-        aria-controls="navbar">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="#">Dating App</a>
-    </div>
-    <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav">
-        <li>
-          <a href="#"> Matches </a>
+    <a class="navbar-brand" href="#">Dating App</a>
+      <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarT" aria-controls="navbarT"
+      aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+    <div id="navbarT" class="navbar-collapse collapse">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item" >
+          <a class="nav-link"  href="#"> Matches </a>
         </li>
-        <li>
-          <a href="#"> List</a>
+        <li class="nav-item">
+          <a class="nav-link"  href="#"> List</a>
         </li>
-        <li>
-          <a href="#"> Messages</a>
+        <li class="nav-item">
+          <a class="nav-link"  href="#"> Messages</a>
         </li>
       </ul>
       <ng-container *ngIf="!isLoggedIn">
-        <form [formGroup]="userLoginForm" class="navbar-form navbar-right">
+        <form [formGroup]="userLoginForm" class="form-inline my-2 my-lg-0">
           <div class="form-group" formGroupName="userLogin">
             <div class="form-group">
-              <input type="text" formControlName="username" placeholder="Email" class="form-control">
+              <input class="form-control mr-sm-2" type="text" formControlName="username" placeholder="Email" class="form-control" style="
+              margin: 3px;">
             </div>
             <div class="form-group">
-              <input type="password" formControlName="password" placeholder="Password" class="form-control">
+              <input class="form-control mr-sm-2 m-lg-auto" type="password" formControlName="password" placeholder="Password" class="form-control" style="
+              margin: 3px;">
             </div>
             <button type="submit" class="btn btn-success" (click)="signIn(userLoginForm.get('userLogin').value)" [disabled]="!userLoginForm.valid">Sign in</button>
           </div>
         </form>
       </ng-container>
       <ng-container *ngIf="isLoggedIn">
-        <ul class="nav navbar-nav navbar-right">
-          <li>
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
             <a (click)="logOut()">Logout</a>
           </li>
-          <li class="dropdown">
+          <li class="dropdown nav-item">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{welcomeUser}}
               <span class="caret"></span>
             </a>
-            <ul class="dropdown-menu">
+            <ul class="dropdown-menu nav-item">
               <li>
                 <a href="#">
                   <i class="fa fa-user" aria-hidden="true"></i>Edit Profile</a>
               </li>
-              <li>
+              <li class="nav-item">
                 <a (click)="logOut()">
                   <i class="fa fa-sign-out" aria-hidden="true"></i>Logout</a>
               </li>
@@ -61,3 +59,5 @@
     <!--/.navbar-collapse -->
   </div>
 </nav>
+
+

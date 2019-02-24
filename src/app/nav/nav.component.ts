@@ -36,9 +36,10 @@ export class NavComponent implements OnInit {
       },
       (error: AppError) => {
         if (error instanceof UnAuthorizedError) {
-          return alert('Please Register to login');
+          alert('lease Register to login');
         } else {
         alert('Something went worng... Please try again in few minutes');
+
         }
       });
   }
@@ -46,6 +47,7 @@ export class NavComponent implements OnInit {
   logOut() {
     localStorage.removeItem('Token');
     this.isLoggedIn = false;
+    alert('Logged Out');
     alert('loggedOut');
   }
   private loadForm(builder: FormBuilder) {
