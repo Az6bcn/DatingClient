@@ -1,13 +1,14 @@
-import { AuthService } from "./../Services/auth.service";
-import { RegisterModel } from "./../Model/RegisterModel";
-import { Validators } from "@angular/forms";
-import { FormBuilder, FormGroup } from "@angular/forms";
-import { Component, OnInit, EventEmitter, Output } from "@angular/core";
+import { AuthService } from './../Services/auth.service';
+import { RegisterModel } from './../Model/RegisterModel';
+import { Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { NotifierService } from 'angular-notifier';
 
 @Component({
-  selector: "app-Register",
-  templateUrl: "./Register.component.html",
-  styleUrls: ["./Register.component.css"]
+  selector: 'app-Register',
+  templateUrl: './Register.component.html',
+  styleUrls: ['./Register.component.css']
 })
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
@@ -15,7 +16,8 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private readonly fb: FormBuilder,
-    private readonly authService: AuthService
+    private readonly authService: AuthService,
+    private notifierService: NotifierService
   ) {}
 
   ngOnInit() {
@@ -23,8 +25,8 @@ export class RegisterComponent implements OnInit {
   }
 
   register(user: RegisterModel) {
-    console.log("user", user);
     this.authService.register(user).subscribe(response => {
+      this.notifierService.notify('success', 'registered successfully');
       this.cancel();
     });
   }
@@ -42,8 +44,8 @@ export class RegisterComponent implements OnInit {
   private static builRegisterFormGroup(builder: FormBuilder) {
     return builder.group({
       userRegister: builder.group({
-        username: ["", Validators.required],
-        password: ["", Validators.required]
+        username: ['', Validators.required],
+        password: ['', Validators.required]
       })
     });
   }

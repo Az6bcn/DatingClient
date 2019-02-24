@@ -4,6 +4,7 @@ import { Login } from './../Model/Login';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { UnAuthorizedError } from '../Errors/UnAuthorizedError';
+import { NotifierService } from 'angular-notifier';
 
 @Component({
   selector: 'app-nav',
@@ -17,7 +18,8 @@ export class NavComponent implements OnInit {
 
   constructor(
     private readonly fb: FormBuilder,
-    private readonly authService: AuthService
+    private readonly authService: AuthService,
+    private notifierService: NotifierService
   ) {}
 
   ngOnInit() {
@@ -32,13 +34,14 @@ export class NavComponent implements OnInit {
         if (response) {
           this.isLoggedIn = response;
           this.welcomeUser = `Welcome ${userLoginFormValue.username}`;
+          this.notifierService.notify('success', 'log in succesfully');
         }
       },
       (error: AppError) => {
         if (error instanceof UnAuthorizedError) {
-          alert('lease Register to login');
+          this.notifierService.notify('error', 'lease Register to login');
         } else {
-        alert('Something went worng... Please try again in few minutes');
+          this.notifierService.notify('error', 'Something went worng... Please try again in few minutes');
 
         }
       });
@@ -47,8 +50,7 @@ export class NavComponent implements OnInit {
   logOut() {
     localStorage.removeItem('Token');
     this.isLoggedIn = false;
-    alert('Logged Out');
-    alert('loggedOut');
+    this.notifierService.notify('success', 'log out succesfully');
   }
   private loadForm(builder: FormBuilder) {
     this.userLoginForm = NavComponent.buildFormGroup(builder);

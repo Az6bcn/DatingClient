@@ -1,7 +1,8 @@
+
+import {throwError as observableThrowError,  Observable } from 'rxjs';
 import { AppError } from './../Errors/AppError';
 import { ForbiddenError } from './../Errors/ForbiddenError';
 import { RegisterModel } from './../Model/RegisterModel';
-import { Observable } from 'rxjs/Observable';
 import {
   HttpClient,
   HttpHeaders,
@@ -10,7 +11,7 @@ import {
 import { Injectable } from '@angular/core';
 import { Login } from '../Model/Login';
 import { map, catchError } from 'rxjs/operators';
-import 'rxjs/add/observable/throw';
+
 import { BadRequestError } from '../Errors/BadRequestError';
 import { NotFoundError } from '../Errors/NotFoundError';
 import { UnAuthorizedError } from '../Errors/UnAuthorizedError';
@@ -64,29 +65,29 @@ export class AuthService {
               check the status of the response  */
     if (error.status === 400) {
       // return Observable that includes an error and throw an error specific to our application domain type error (BadRequestError)
-      return Observable.throw(new BadRequestError(error));
+      return observableThrowError(new BadRequestError(error));
     }
 
     /* Handling Expected Error (The post might already been deleted and the Server response will be Not found, status code 404):
                 check the status of the response )*/
     if (error.status === 404) {
       // return Observable that includes an error and throw an error specific to our application  domain type error (NotFoundError)
-      return Observable.throw(new NotFoundError());
+      return observableThrowError(new NotFoundError());
     }
 
     if (error.status === 401) {
       // return Observable that includes an error and throw an error specific to our application domain type error (UnAuthoriseError)
-      return Observable.throw(new UnAuthorizedError(error));
+      return observableThrowError(new UnAuthorizedError(error));
     }
 
     /* 403 ==> Forbidden, credentials correct, authentification correct but maybe
                   people with user role can't access/restricted from the resource */
     if (error.status === 403) {
       // return Observable that includes an error and throw an error specific to our application  domain type error (NotFoundError)
-      return Observable.throw(new ForbiddenError(error));
+      return observableThrowError(new ForbiddenError(error));
     }
 
     // return Observable that includes an error and throw an error (unknown) to our application  domain type error (AppError)
-    return Observable.throw(new AppError(error));
+    return observableThrowError(new AppError(error));
   }
 }
