@@ -40,6 +40,10 @@ export class RegisterComponent implements OnInit {
     this.registerForm = RegisterComponent.builRegisterFormGroup(builder);
   }
 
+  isFormValid(userRegister: FormGroup): boolean {
+    return userRegister.valid;
+  }
+
   // tslint:disable-next-line:member-ordering
   private static builRegisterFormGroup(builder: FormBuilder) {
     return builder.group({
