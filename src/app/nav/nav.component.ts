@@ -5,6 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { UnAuthorizedError } from '../Errors/UnAuthorizedError';
 import { NotifierService } from 'angular-notifier';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-nav',
@@ -19,7 +20,9 @@ export class NavComponent implements OnInit {
   constructor(
     private readonly fb: FormBuilder,
     private readonly authService: AuthService,
-    private notifierService: NotifierService
+    private notifierService: NotifierService,
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
@@ -51,6 +54,7 @@ export class NavComponent implements OnInit {
     localStorage.removeItem('Token');
     this.isLoggedIn = false;
     this.notifierService.notify('success', 'log out succesfully');
+    this.router.navigate(['../'], {relativeTo: this.route});
   }
   private loadForm(builder: FormBuilder) {
     this.userLoginForm = NavComponent.buildFormGroup(builder);
