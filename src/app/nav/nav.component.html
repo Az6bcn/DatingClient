@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
   <div class="container">
-    <a class="navbar-brand" [routerLink]="['/']" routerLinkActive="router-link-active" >Dating App</a>
+    <a class="navbar-brand" [routerLink]="['/']" routerLinkActive="active" >Dating App</a>
       <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarT" aria-controls="navbarT"
       aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -9,13 +9,13 @@
     <div id="navbarT" class="navbar-collapse collapse">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item" >
-          <a class="nav-link" [routerLink]="['/matches']" routerLinkActive="router-link-active"> Matches </a>
+          <a class="nav-link" [routerLink]="['/matches']" routerLinkActive="active"> Matches </a>
         </li>
         <li class="nav-item">
-          <a [routerLink]="['/lists']" routerLinkActive="router-link-active"  class="nav-link"> List</a>
+          <a [routerLink]="['/lists']" routerLinkActive="active"  class="nav-link"> List</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" [routerLink]="['/messages']" routerLinkActive="router-link-active"> Messages</a>
+          <a class="nav-link" [routerLink]="['/messages']" routerLinkActive="active"> Messages</a>
         </li>
       </ul>
       <ng-container *ngIf="!isLoggedIn">

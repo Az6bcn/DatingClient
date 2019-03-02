@@ -16,6 +16,7 @@ import { RouterModule } from '@angular/router';
 import { MemberListComponent } from './member-list/member-list.component';
 import { ListComponent } from './list/list.component';
 import { MessagesComponent } from './messages/messages.component';
+import { AuthGuardService } from './Guards/auth-guard.service';
 
 
 @NgModule({
@@ -29,12 +30,12 @@ import { MessagesComponent } from './messages/messages.component';
       }
   }), BsDropdownModule.forRoot(), RouterModule.forRoot([
     {path: '', component: HomeComponent},
-    {path: 'matches', component: MemberListComponent},
-    {path: 'lists', component: ListComponent},
-    {path: 'messages', component: MessagesComponent},
+    {path: 'matches', component: MemberListComponent, canActivate: [AuthGuardService]},
+    {path: 'lists', component: ListComponent, canActivate: [AuthGuardService]},
+    {path: 'messages', component: MessagesComponent, canActivate: [AuthGuardService]},
     {path: '**', component: HomeComponent}
   ])],
-  providers: [AuthService, JwtHelperService],
+  providers: [AuthService, JwtHelperService, AuthGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

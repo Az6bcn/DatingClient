@@ -43,8 +43,12 @@ export class NavComponent implements OnInit {
       .subscribe((response: boolean) => {
         if (response) {
           this.isLoggedIn = response;
-          this.welcomeUser = `Welcome ${this.getUserNameFromToken()}`;
           this.notifierService.notify('success', 'log in succesfully');
+          this.welcomeUser = `Welcome ${this.getUserNameFromToken()}`;
+
+          // get returnURL if any
+          const returnURL = this.route.snapshot.queryParams['returnURL'];
+          this.router.navigate([returnURL || '/matches']);
         }
       },
       (error: AppError) => {
