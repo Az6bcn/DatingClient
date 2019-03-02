@@ -6,6 +6,7 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { UnAuthorizedError } from '../Errors/UnAuthorizedError';
 import { NotifierService } from 'angular-notifier';
 import { Router, ActivatedRoute } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Component({
   selector: 'app-nav',
@@ -22,11 +23,17 @@ export class NavComponent implements OnInit {
     private readonly authService: AuthService,
     private notifierService: NotifierService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private jwtHelperService: JwtHelperService
   ) {}
 
   ngOnInit() {
     this.loadForm(this.fb);
+    console.log(this.jwtHelperService.tokenGetter());
+    this.isLoggedIn = this.jwtHelperService.tokenGetter() != null ? true : false;
+
+    // tslint:disable-next-line:curly
+    if(this.isLoggedIn) this.welcomeUser = `Welcome ${this.getUserNameFromToken()}`;
   }
 
   signIn(userLoginFormValue: Login) {
@@ -36,7 +43,7 @@ export class NavComponent implements OnInit {
       .subscribe((response: boolean) => {
         if (response) {
           this.isLoggedIn = response;
-          this.welcomeUser = `Welcome ${userLoginFormValue.username}`;
+          this.welcomeUser = `Welcome ${this.getUserNameFromToken()}`;
           this.notifierService.notify('success', 'log in succesfully');
         }
       },
@@ -60,13 +67,6 @@ export class NavComponent implements OnInit {
     this.userLoginForm = NavComponent.buildFormGroup(builder);
   }
 
-  /**
-   * Check if there's any user logged-in
-   */
-  checkIfUserLoggedIn(): boolean {
-    const token = localStorage.getItem('Token');
-    return !!token;
-  }
 
   // tslint:disable-next-line:member-ordering
   private static buildFormGroup(builder: FormBuilder) {
@@ -76,5 +76,16 @@ export class NavComponent implements OnInit {
         password: ['', Validators.required]
       })
     });
+  }
+
+  private getUserNameFromToken(): string {
+    const token = this.jwtHelperService.tokenGetter();
+    let userName = '';
+    if (!this.jwtHelperService.isTokenExpired(token)) {
+      const decodedToken = this.jwtHelperService.decodeToken(token);
+      console.log(decodedToken);
+      userName = decodedToken.unique_name;
+    }
+    return userName;
   }
 }

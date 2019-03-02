@@ -1,3 +1,4 @@
+import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
 import { Component } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -15,16 +16,25 @@ import { RouterModule } from '@angular/router';
 import { MemberListComponent } from './member-list/member-list.component';
 import { ListComponent } from './list/list.component';
 import { MessagesComponent } from './messages/messages.component';
+
+
 @NgModule({
   declarations: [AppComponent, NavComponent, HomeComponent, RegisterComponent, MemberListComponent, ListComponent, MessagesComponent],
-  imports: [BrowserModule, HttpClientModule, ReactiveFormsModule, NotifierModule, BsDropdownModule.forRoot(), RouterModule.forRoot([
+  imports: [BrowserModule, HttpClientModule, ReactiveFormsModule, NotifierModule,
+    JwtModule.forRoot({
+      config: {
+          tokenGetter: () => {
+            return localStorage.getItem('Token');
+          }
+      }
+  }), BsDropdownModule.forRoot(), RouterModule.forRoot([
     {path: '', component: HomeComponent},
     {path: 'matches', component: MemberListComponent},
     {path: 'lists', component: ListComponent},
     {path: 'messages', component: MessagesComponent},
     {path: '**', component: HomeComponent}
   ])],
-  providers: [AuthService],
+  providers: [AuthService, JwtHelperService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
