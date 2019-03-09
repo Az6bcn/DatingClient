@@ -1,12 +1,12 @@
-import { AppError } from './../Errors/AppError';
 import { AuthService } from './../Services/auth.service';
-import { Login } from './../Model/Login';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { UnAuthorizedError } from '../Errors/UnAuthorizedError';
 import { NotifierService } from 'angular-notifier';
 import { Router, ActivatedRoute } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { Login } from '../..//Model/Login';
+import { AppError } from '../../Errors/AppError';
+import { UnAuthorizedError } from '../../Errors/UnAuthorizedError';
 
 @Component({
   selector: 'app-nav',

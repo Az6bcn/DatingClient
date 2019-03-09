@@ -1,0 +1,7 @@
+<div *ngIf = '(isLoading$ | async)'>
+  <app-spinner></app-spinner>
+</div>
+
+<div *ngIf='Users && Users.length > 0' >
+    <app-member-card [userModel]=Users ></app-member-card>
+</div>

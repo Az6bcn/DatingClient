@@ -7,20 +7,23 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
-import { NavComponent } from './nav/nav.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { AuthService } from './Services/auth.service';
 import { HomeComponent } from './Home/Home.component';
 import { RegisterComponent } from './Register/Register.component';
 import { RouterModule } from '@angular/router';
-import { MemberListComponent } from './member-list/member-list.component';
 import { ListComponent } from './list/list.component';
 import { MessagesComponent } from './messages/messages.component';
 import { AuthGuardService } from './Guards/auth-guard.service';
+import { MemberCardComponent } from './Member/member-card/member-card.component';
+import { MemberListComponent } from './Member/member-list/member-list.component';
+import { NavComponent } from './Core/nav/nav.component';
+import { AuthService } from './Core/Services/auth.service';
+import { SpinnerComponent } from './Shared/Components/spinner/spinner.component';
 
 
 @NgModule({
-  declarations: [AppComponent, NavComponent, HomeComponent, RegisterComponent, MemberListComponent, ListComponent, MessagesComponent],
+  declarations: [AppComponent, NavComponent, HomeComponent, RegisterComponent, MemberListComponent,
+    ListComponent, MessagesComponent, MemberCardComponent, SpinnerComponent],
   imports: [BrowserModule, HttpClientModule, ReactiveFormsModule, NotifierModule,
     JwtModule.forRoot({
       config: {

@@ -1,24 +1,23 @@
+import { BadRequestError } from './../../Errors/BadRequestError';
+import { NotFoundError } from './../../Errors/NotFoundError';
+import { UnAuthorizedError } from './../../Errors/UnAuthorizedError';
+import { AppError } from './../../Errors/AppError';
+import { ForbiddenError } from './../../Errors/ForbiddenError';
+import { RegisterModel } from './../../Model/RegisterModel';
+import { Login } from './../../Model/Login';
 
 import {throwError as observableThrowError,  Observable } from 'rxjs';
-import { AppError } from './../Errors/AppError';
-import { ForbiddenError } from './../Errors/ForbiddenError';
-import { RegisterModel } from './../Model/RegisterModel';
 import {
   HttpClient,
   HttpHeaders,
   HttpErrorResponse
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Login } from '../Model/Login';
 import { map, catchError } from 'rxjs/operators';
-
-import { BadRequestError } from '../Errors/BadRequestError';
-import { NotFoundError } from '../Errors/NotFoundError';
-import { UnAuthorizedError } from '../Errors/UnAuthorizedError';
 
 @Injectable()
 export class AuthService {
-  private baseUrl = 'http://172.16.172.129:5000/api';
+  private readonly baseUrl = 'http://172.16.172.129:5000/api';
   private Login = 'auth/login';
   private Register = 'auth/register';
   constructor(private readonly http: HttpClient) {}

@@ -1,4 +1,4 @@
-import { AuthService } from './../Services/auth.service';
+import { AuthService } from '../Core/Services/auth.service';
 import { RegisterModel } from './../Model/RegisterModel';
 import { Validators } from '@angular/forms';
 import { FormBuilder, FormGroup } from '@angular/forms';
