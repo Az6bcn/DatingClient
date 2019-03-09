@@ -18,7 +18,16 @@ import { AppError } from '../../Errors/AppError';
 export class UserService {
   private readonly baseUrl = environment.baseURL;
   private readonly allUsers = 'users/getusers';
+  private readonly userByID = 'getuserbyid/id';
   constructor(private http: HttpClient, private jwtHelperService: JwtHelperService) { }
+
+private httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type':  'application/json',
+      'Authorization': 'Bearer ' + this.jwtHelperService.tokenGetter()
+    })
+  };
+
 
   /**
   * Gets all Users, Returns Observable<User[]>
@@ -26,21 +35,21 @@ export class UserService {
   GetUsers(): Observable<Array<User>> {
     const url = `${this.baseUrl}/${this.allUsers}`;
 
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type':  'application/json',
-        'Authorization': 'Bearer ' + this.jwtHelperService.tokenGetter()
-      })
-    };
-
-
-    return this.http.get<Array<User>>(url, httpOptions)
+    return this.http.get<Array<User>>(url, this.httpOptions)
     .pipe(
       catchError(this.handleError)
     );
   }
 
 
+  GetUserByUserID(): Observable<User> {
+    const url = `${this.baseUrl}/${this.userByID}`;
+
+    return this.http.get<User>(url, this.httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
   private handleError(error: HttpErrorResponse) {
     /* Handling Expected Error (Imagine we sending invalid data to the Server response will be Bad Request, status code 400)
               check the status of the response  */
