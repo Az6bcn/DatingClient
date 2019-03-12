@@ -22,9 +22,7 @@ userDetails: Observable<UserDetails>;
 
      this.userService.GetUserByUserID(userID)
       .subscribe( userDetails => {
-        if (UserDetails) {
           this.userDetails = of(userDetails);
-        }
       },
       error => {
         this.notifierService.notify('error', 'User details not found');
