@@ -48,7 +48,7 @@ export class NavComponent implements OnInit {
 
           // get returnURL if any
           const returnURL = this.route.snapshot.queryParams['returnURL'];
-          this.router.navigate([returnURL || '/matches']);
+          this.router.navigate([returnURL || '/members']);
         }
       },
       (error: AppError) => {

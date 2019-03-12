@@ -6,20 +6,26 @@
           <img class="card-img-top" [src]='user.PhotoURL' alt="Card image cap">
           <ul class='list-inline member-icons animate text-center'>
             <li class='list-inline-item'>
-              <button class='btn btn-primary'>
-                <i class='fa fa-user'></i>
-              </button>
+              <a [routerLink]="['/members', user.Id]" routerLinkActive="router-link-active">
+                <button class='btn btn-primary'>
+                  <i class='fa fa-user'></i>
+                </button>
+              </a>
             </li>
             <li class='list-inline-item'>
+              <a [routerLink]="['/members', user.Id]" routerLinkActive="router-link-active">
                 <button class='btn btn-primary'>
                   <i class='fa fa-heart'></i>
                 </button>
-              </li>
-              <li class='list-inline-item'>
-                  <button class='btn btn-primary'>
-                    <i class='fa fa-envelope'></i>
-                  </button>
-                </li>
+              </a>
+            </li>
+            <li class='list-inline-item'>
+              <a [routerLink]="['/members', user.Id]" routerLinkActive="router-link-active">
+                <button class='btn btn-primary'>
+                  <i class='fa fa-envelope'></i>
+                </button>
+              </a>
+            </li>
           </ul>
         </div>
         <div class="card-body p-1">
