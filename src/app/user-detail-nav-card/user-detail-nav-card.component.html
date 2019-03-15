@@ -1,0 +1,27 @@
+<ul class="nav nav-tabs">
+  <li class="nav-item">
+    <a class="nav-link " [class.active]="showAboutDiv" data-toggle="tab" (click)='showAbout()'>About
+      {{userDetails.KnownAs}}</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="tab" [class.active]="showInterestsDiv" (click)='showInterests()'> Interests</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="tab" [class.active]="showPhotosDiv" (click)='showPhotos()'>Photos</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="tab" [class.active]="showMessagesDiv" (click)='showMessage()'>Messages</a>
+  </li>
+</ul>
+<div *ngIf='showAboutDiv'>
+  <app-user-about [userIntro]='userDetails.Introduction' [userLookingFor]='userDetails.LookingFor'></app-user-about>
+</div>
+<div *ngIf='showInterestsDiv'>
+  <app-user-interests [userInterest]='userDetails.Interests'></app-user-interests>
+</div>
+<div *ngIf='showMessagesDiv'>
+  <app-user-messages></app-user-messages>
+</div>
+<div *ngIf='showPhotosDiv'>
+  <app-user-photos></app-user-photos>
+</div>

@@ -4,6 +4,7 @@ import { UserDetails } from './../../Model/UserDetails';
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { NotifierService } from 'angular-notifier';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-member-detail',
@@ -16,9 +17,13 @@ export class MemberDetailComponent implements OnInit {
 
   ngOnInit() {
     this.router.data
-      .subscribe( response => {
-        this.UserDetail = response.userDetail;
-        console.log('userDetail', this.UserDetail);
+        .subscribe( data => {
+        if (data.userDetail) {
+          this.UserDetail = data.userDetail;
+          console.log('details:', this.UserDetail);
+        }
       });
     }
+
+
 }

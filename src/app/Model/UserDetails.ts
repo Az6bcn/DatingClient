@@ -7,12 +7,13 @@ export class UserDetails{
   Country: string;
   City: string;
   Introduction: string;
+  LookingFor: string;
   Interests: string;
   CreatedAt: Date;
   LastActive: Date;
 
   Photos: Array<Photo>;
-  PhotoURL: string;
+  PhotoUrl: string;
 
 
   constructor() {

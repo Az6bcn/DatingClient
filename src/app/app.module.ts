@@ -20,11 +20,29 @@ import { NavComponent } from './Core/nav/nav.component';
 import { AuthService } from './Core/Services/auth.service';
 import { SpinnerComponent } from './Shared/Components/spinner/spinner.component';
 import { MemberDetailComponent } from './Member/member-detail/member-detail.component';
+import { UserInterestsComponent } from './user-interests/user-interests.component';
+import { UserPhotosComponent } from './user-photos/user-photos.component';
+import { UserMessagesComponent } from './user-messages/user-messages.component';
+import { UserAboutComponent } from './user-about/user-about.component';
+import { UserDetailNavCardComponent } from './user-detail-nav-card/user-detail-nav-card.component';
 
 
 @NgModule({
-  declarations: [AppComponent, NavComponent, HomeComponent, RegisterComponent, MemberListComponent,
-    ListComponent, MessagesComponent, MemberCardComponent, SpinnerComponent, MemberDetailComponent],
+  declarations: [AppComponent,
+                 NavComponent,
+                 HomeComponent,
+                 RegisterComponent,
+                 MemberListComponent,
+                 ListComponent,
+                 MessagesComponent,
+                 MemberCardComponent,
+                 SpinnerComponent,
+                 MemberDetailComponent,
+                 UserInterestsComponent,
+                 UserPhotosComponent,
+                 UserMessagesComponent,
+                 UserAboutComponent,
+                 UserDetailNavCardComponent],
   imports: [BrowserModule, HttpClientModule, ReactiveFormsModule, NotifierModule,
     JwtModule.forRoot({
       config: {
@@ -38,7 +56,7 @@ import { MemberDetailComponent } from './Member/member-detail/member-detail.comp
     {path: 'members', component: MemberListComponent, canActivate: [AuthGuardService]},
     {path: 'lists', component: ListComponent, canActivate: [AuthGuardService]},
     {path: 'messages', component: MessagesComponent, canActivate: [AuthGuardService]},
-    {path: '**', component: HomeComponent}
+    {path: '**', component: MemberListComponent, canActivate: [AuthGuardService]}
   ])],
   providers: [AuthService, JwtHelperService, AuthGuardService, UserDetailResolverService],
   bootstrap: [AppComponent]

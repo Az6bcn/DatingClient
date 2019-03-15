@@ -1,3 +1,30 @@
-<p>
-  member-detail works!
-</p>
+<div class='container-fluid'>
+  <div class='row'>
+    <div class='col-lg-3 col-md-5 col-sm-12 '>
+      <div class="card" style="width: 18rem;">
+        <img class="card-img-top" [src]='UserDetail.PhotoUrl' alt="Card image cap">
+        <div class="card-body">
+          <h5><strong>Location:</strong></h5>
+          <p class="card-text">{{UserDetail.City}}, {{UserDetail.Country}}</p>
+          <h5><strong>Age:</strong></h5>
+          <p class="card-text">{{UserDetail.Age}}</p>
+          <h5><strong>Last Active:</strong></h5>
+          <p class="card-text">{{UserDetail.LastActive}}</p>
+          <h5><strong>Member Since:</strong></h5>
+          <p class="card-text">{{UserDetail.CreatedAt}}</p>
+          <div class='row'>
+            <div>
+              <button type="button" class="btn btn-primary btnlike text-center">Like</button>
+            </div>
+            <div>
+              <button type="button" class="btn btn-success btnmessage text-center">Message</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class='col-lg-9 col-md-7 col-sm-12 card' *ngIf='UserDetail'>
+      <app-user-detail-nav-card [userDetails]='UserDetail'></app-user-detail-nav-card>
+    </div>
+  </div>
+</div>
