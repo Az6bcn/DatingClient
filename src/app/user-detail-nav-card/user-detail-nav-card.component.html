@@ -1,16 +1,28 @@
 <ul class="nav nav-tabs">
   <li class="nav-item">
-    <a class="nav-link " [class.active]="showAboutDiv" data-toggle="tab" (click)='showAbout()'>About
+    <a class="nav-link" [ngClass]="{
+      'active': showAboutDiv,
+      'inactiveTabsColor': !showAboutDiv
+    }" data-toggle="tab" (click)='showAbout()'>About
       {{userDetails.KnownAs}}</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" data-toggle="tab" [class.active]="showInterestsDiv" (click)='showInterests()'> Interests</a>
+    <a class="nav-link" data-toggle="tab" [ngClass]="{
+      'active': showInterestsDiv,
+      'inactiveTabsColor': !showInterestsDiv
+    }" (click)='showInterests()'> Interests</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" data-toggle="tab" [class.active]="showPhotosDiv" (click)='showPhotos()'>Photos</a>
+    <a class="nav-link" data-toggle="tab" [ngClass]="{
+      'active': showPhotosDiv,
+      'inactiveTabsColor': !showPhotosDiv
+    }"  (click)='showPhotos()'>Photos</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" data-toggle="tab" [class.active]="showMessagesDiv" (click)='showMessage()'>Messages</a>
+    <a class="nav-link" data-toggle="tab" [ngClass]="{
+      'active': showMessagesDiv,
+      'inactiveTabsColor': !showMessagesDiv
+    }"  (click)='showMessage()'>Messages</a>
   </li>
 </ul>
 <div *ngIf='showAboutDiv'>
