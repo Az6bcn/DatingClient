@@ -28,17 +28,6 @@ export class UserDetailResolverService implements Resolve<User> {
         return EMPTY;
       }));
 
-    // .pipe(
-    //   take(1),
-    //   mergeMap(userDetails => {
-    //   console.log('userDetailsFound', userDetails);
-    //   return of(userDetails);
-    // },(
-    //   error => {
-    //     this.notifierService.notify('error', 'User details not found');
-    //     return EMPTY;
-    //   }
-    //   );
   }
 
 }
