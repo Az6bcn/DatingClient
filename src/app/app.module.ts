@@ -25,6 +25,7 @@ import { UserPhotosComponent } from './user-photos/user-photos.component';
 import { UserMessagesComponent } from './user-messages/user-messages.component';
 import { UserAboutComponent } from './user-about/user-about.component';
 import { UserDetailNavCardComponent } from './user-detail-nav-card/user-detail-nav-card.component';
+import { NgxGalleryModule } from 'ngx-gallery';
 
 
 @NgModule({
@@ -42,8 +43,9 @@ import { UserDetailNavCardComponent } from './user-detail-nav-card/user-detail-n
                  UserPhotosComponent,
                  UserMessagesComponent,
                  UserAboutComponent,
-                 UserDetailNavCardComponent],
-  imports: [BrowserModule, HttpClientModule, ReactiveFormsModule, NotifierModule,
+                 UserDetailNavCardComponent
+                 ],
+  imports: [BrowserModule, HttpClientModule, ReactiveFormsModule, NotifierModule, NgxGalleryModule,
     JwtModule.forRoot({
       config: {
           tokenGetter: () => {
