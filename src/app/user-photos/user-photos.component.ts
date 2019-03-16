@@ -21,7 +21,6 @@ export class UserPhotosComponent implements OnInit {
                                   return new NgxGalleryImage({small: p.Url, big: p.Url, medium: p.Url,
                                     description: p.Description, url: p.Url});
                                 } );
-      console.log('ngxxxxxxx', this.ngxGalleryImages);
     }
 
     this.galleryOptions = [
