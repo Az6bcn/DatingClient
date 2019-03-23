@@ -1,0 +1,89 @@
+<app-spinner *ngIf='(isLoading$ | async)'></app-spinner>
+
+
+<div class='container-fluid' *ngIf='!(isLoading$ | async)'>
+  <div class='row'>
+    <div class='col-lg-3 col-md-5 col-sm-12 '>
+      <div class="card" style="width: 18rem;">
+        <img class="card-img-top" [src]='UserDetail.PhotoUrl' alt="Card image cap">
+        <div class="card-body">
+          <h5><strong>Location:</strong></h5>
+          <p class="card-text">{{UserDetail.City}}, {{UserDetail.Country}}</p>
+          <h5><strong>Age:</strong></h5>
+          <p class="card-text">{{UserDetail.Age}}</p>
+          <h5><strong>Last Active:</strong></h5>
+          <p class="card-text">{{UserDetail.LastActive}}</p>
+          <h5><strong>Member Since:</strong></h5>
+          <p class="card-text">{{UserDetail.CreatedAt}}</p>
+          <div class='row'>
+            <div>
+              <button type="button" class="btn btn-success btnmessage text-center"
+              [disabled]='IsValid(UserEditProfileForm)' (click)='UpdateProfile(UserEditProfileForm.value)'>Save Changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class='col-lg-9 col-md-7 col-sm-12 card' *ngIf='UserDetail'>
+      <form [formGroup]="UserEditProfileForm">
+        <div class="form-group">
+          <label for="description">Description: </label>
+          <textarea type="text" formControlName="Description" class="form-control" id="description"
+            placeholder="Enter description"></textarea>
+
+          <!-- Errors -->
+          <div *ngIf='description.touched && description.invalid' class="alert alert-danger">
+            <div *ngIf='description.errors.required'> This field is required </div>
+          </div>
+        </div>
+
+
+        <div class="form-group">
+          <label for="lookingfor">Looking For: </label>
+          <textarea type="text" formControlName="LookingFor" class="form-control" id="lookingfor"
+            placeholder="Enter description"></textarea>
+
+          <!-- Errors -->
+          <div *ngIf='lookingfor.touched && lookingfor.invalid' class="alert alert-danger">
+            <div *ngIf='lookingfor.errors.required'> This field is required </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="interests">Interests: </label>
+          <textarea type="text" formControlName="Interests" class="form-control" id="interests"
+            placeholder="Enter description"></textarea>
+          <!-- Errors -->
+          <div *ngIf='interets.touched && interets.invalid' class="alert alert-danger">
+            <div *ngIf='interets.errors.required'> This field is required </div>
+          </div>
+        </div>
+
+        <br>
+        <br>
+        <label>Location Details: </label>
+        <div class="form-inline">
+          <!-- <div class="form-group mb-2"> -->
+            <div class='form-group mb-2'>
+              <label for="city">City: </label>
+              <input type="text" formControlName="City" class="form-control" id="city" placeholder="Enter description">
+              <!-- Errors -->
+              <div *ngIf='city.touched && city.invalid' class="alert alert-danger">
+                <div *ngIf='city.errors.required'> This field is required </div>
+              </div>
+            </div>
+            <div class="form-group mx-sm-3 mb-2">
+              <label for="country">Country: </label>
+              <input type="text" formControlName="Country" class="form-control" id="country"
+                placeholder="Enter description">
+              <!-- Errors -->
+              <div *ngIf='country.touched && country.invalid' class="alert alert-danger">
+                <div *ngIf='country.errors.required'> This field is required </div>
+              </div>
+            </div>
+          </div>
+        <!-- </div> -->
+      </form>
+    </div>
+  </div>
+</div>

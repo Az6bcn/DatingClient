@@ -26,6 +26,7 @@ import { UserMessagesComponent } from './user-messages/user-messages.component';
 import { UserAboutComponent } from './user-about/user-about.component';
 import { UserDetailNavCardComponent } from './user-detail-nav-card/user-detail-nav-card.component';
 import { NgxGalleryModule } from 'ngx-gallery';
+import { MemberEditProfileComponent } from './Member/member-edit-profile/member-edit-profile.component';
 
 
 @NgModule({
@@ -43,7 +44,8 @@ import { NgxGalleryModule } from 'ngx-gallery';
                  UserPhotosComponent,
                  UserMessagesComponent,
                  UserAboutComponent,
-                 UserDetailNavCardComponent
+                 UserDetailNavCardComponent,
+                 MemberEditProfileComponent
                  ],
   imports: [BrowserModule, HttpClientModule, ReactiveFormsModule, NotifierModule, NgxGalleryModule,
     JwtModule.forRoot({
@@ -55,6 +57,7 @@ import { NgxGalleryModule } from 'ngx-gallery';
   }), BsDropdownModule.forRoot(), RouterModule.forRoot([
     {path: '', component: HomeComponent},
     {path: 'members/:id', component: MemberDetailComponent, resolve: {userDetail: UserDetailResolverService}},
+    {path: 'members/:id/edit-profile', component: MemberEditProfileComponent},
     {path: 'members', component: MemberListComponent, canActivate: [AuthGuardService]},
     {path: 'lists', component: ListComponent, canActivate: [AuthGuardService]},
     {path: 'messages', component: MessagesComponent, canActivate: [AuthGuardService]},

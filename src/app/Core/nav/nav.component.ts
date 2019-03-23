@@ -17,6 +17,7 @@ export class NavComponent implements OnInit {
   userLoginForm: FormGroup;
   isLoggedIn: boolean;
   welcomeUser: string;
+  userID: string;
 
   constructor(
     private readonly fb: FormBuilder,
@@ -87,6 +88,7 @@ export class NavComponent implements OnInit {
     let userName = '';
     if (!this.jwtHelperService.isTokenExpired(token)) {
       const decodedToken = this.jwtHelperService.decodeToken(token);
+      this.userID = decodedToken.nameid;
       console.log(decodedToken);
       userName = decodedToken.unique_name;
     }
