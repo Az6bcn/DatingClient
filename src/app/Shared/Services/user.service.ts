@@ -20,11 +20,12 @@ export class UserService {
   private readonly baseUrl = environment.baseURL;
   private readonly allUsers = 'users/getusers';
   private readonly userByID = 'users/getuserbyid';
+  private readonly editUserProfile = 'edit-profile';
   constructor(private http: HttpClient, private jwtHelperService: JwtHelperService) { }
 
 private httpOptions = {
     headers: new HttpHeaders({
-      'Content-Type':  'application/json',
+      // 'Content-Type':  'application/json', // in Angular 7 : content type by default is application/json
       'Authorization': 'Bearer ' + this.jwtHelperService.tokenGetter()
     })
   };
@@ -51,6 +52,17 @@ private httpOptions = {
         catchError(this.handleError)
       );
   }
+
+  EditUserProfile(userDetail: UserDetails): Observable<UserDetails> {
+    const url = `${this.baseUrl}/users/${userDetail.Id}/${this.editUserProfile}`;
+
+    return this.http.put<UserDetails>(url, userDetail, this.httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+
   private handleError(error: HttpErrorResponse) {
     // /* Handling Expected Error (Imagine we sending invalid data to the Server response will be Bad Request, status code 400)
              // check the status of the response  */

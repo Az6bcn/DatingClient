@@ -5,6 +5,7 @@ import { UserDetails } from './../../Model/UserDetails';
 import { UserService } from './../../Shared/Services/user.service';
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit, ɵConsole } from '@angular/core';
+import { NotifierService } from 'angular-notifier';
 
 @Component({
   selector: 'app-member-edit-profile',
@@ -16,14 +17,17 @@ export class MemberEditProfileComponent implements OnInit {
   UserDetail: UserDetails;
   UserEditProfileForm: FormGroup;
   isLoading$ = new BehaviorSubject<boolean>(true);
+  userID: number;
   constructor(private activatedRoute: ActivatedRoute,
               private userService: UserService,
-              private fb: FormBuilder) { }
+              private fb: FormBuilder,
+              private notifierService: NotifierService) { }
 
   ngOnInit() {
-    const userID = this.activatedRoute.snapshot.params['id'];
+    this.userID = this.activatedRoute.snapshot.params['id'];
 
-    this.userService.GetUserByUserID(userID)
+    if (this.userID) {
+    this.userService.GetUserByUserID(this.userID)
       .pipe(
         finalize(() => this.isLoading$.next(false))
         )
@@ -32,11 +36,12 @@ export class MemberEditProfileComponent implements OnInit {
 
         this.UserEditProfileForm = this.buildEditForm(this.fb, response);
       });
+    }
   }
 
   private buildEditForm(builder: FormBuilder, user: UserDetails): FormGroup {
     return builder.group({
-      Description: [user.Introduction, Validators.required],
+      Introduction: [user.Introduction, Validators.required],
       LookingFor: [user.LookingFor, Validators.required],
       Interests: [user.Interests, Validators.required],
       City: [user.City, Validators.required],
@@ -45,15 +50,23 @@ export class MemberEditProfileComponent implements OnInit {
   }
 
   UpdateProfile(userDetail: UserDetails) {
-    console.warn(userDetail);
+    userDetail.Id = this.userID;
 
+    this.userService.EditUserProfile(userDetail)
+      .subscribe( (response: UserDetails) => {
+        this.notifierService.notify('success', 'Profile updated successfully');
+        console.log('updatedProfile', response);
+      },
+      error => {
+        this.notifierService.notify('error', 'Something went wrong');
+      });
   }
 
   IsValid(UserEditProfileForm: FormGroup): boolean {
     return UserEditProfileForm.invalid;
   }
-  get description(): AbstractControl {
-    return this.UserEditProfileForm.get('Description');
+  get introduction(): AbstractControl {
+    return this.UserEditProfileForm.get('Introduction');
   }
   get lookingfor(): AbstractControl {
     return this.UserEditProfileForm.get('LookingFor');

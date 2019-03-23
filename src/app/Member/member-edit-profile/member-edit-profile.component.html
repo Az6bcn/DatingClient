@@ -28,12 +28,12 @@
       <form [formGroup]="UserEditProfileForm">
         <div class="form-group">
           <label for="description">Description: </label>
-          <textarea type="text" formControlName="Description" class="form-control" id="description"
+          <textarea type="text" formControlName="Introduction" class="form-control" id="description"
             placeholder="Enter description"></textarea>
 
           <!-- Errors -->
-          <div *ngIf='description.touched && description.invalid' class="alert alert-danger">
-            <div *ngIf='description.errors.required'> This field is required </div>
+          <div *ngIf='introduction.touched && introduction.invalid' class="alert alert-danger">
+            <div *ngIf='introduction.errors.required'> This field is required </div>
           </div>
         </div>
 
