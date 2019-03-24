@@ -1,10 +1,11 @@
+import { UserEditFormComponent } from './user-edit-form/user-edit-form.component';
 import { FormBuilder, FormGroup, Validators, FormControl, AbstractControl } from '@angular/forms';
 import { finalize } from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs';
 import { UserDetails } from './../../Model/UserDetails';
 import { UserService } from './../../Shared/Services/user.service';
 import { ActivatedRoute } from '@angular/router';
-import { Component, OnInit, ɵConsole } from '@angular/core';
+import { Component, OnInit, ɵConsole, ViewChild, AfterViewInit } from '@angular/core';
 import { NotifierService } from 'angular-notifier';
 
 @Component({
@@ -16,12 +17,11 @@ export class MemberEditProfileComponent implements OnInit {
 
   UserDetail: UserDetails;
   UserEditProfileForm: FormGroup;
-  isLoading$ = new BehaviorSubject<boolean>(true);
+
   userID: number;
+  isLoading$ = new BehaviorSubject<boolean>(true);
   constructor(private activatedRoute: ActivatedRoute,
-              private userService: UserService,
-              private fb: FormBuilder,
-              private notifierService: NotifierService) { }
+              private userService: UserService) { }
 
   ngOnInit() {
     this.userID = this.activatedRoute.snapshot.params['id'];
@@ -33,59 +33,8 @@ export class MemberEditProfileComponent implements OnInit {
         )
       .subscribe((response: UserDetails) => {
         this.UserDetail = response;
-
-        this.UserEditProfileForm = this.buildEditForm(this.fb, response);
+        console.log(this.UserDetail);
       });
     }
-  }
-
-  private buildEditForm(builder: FormBuilder, user: UserDetails): FormGroup {
-    return builder.group({
-      Introduction: [user.Introduction, Validators.required],
-      LookingFor: [user.LookingFor, Validators.required],
-      Interests: [user.Interests, Validators.required],
-      City: [user.City, Validators.required],
-      Country: [user.Country, Validators.required]
-    });
-  }
-
-  UpdateProfile(userDetail: UserDetails) {
-    userDetail.Id = this.userID;
-
-    this.userService.EditUserProfile(userDetail)
-      .subscribe( (response: UserDetails) => {
-        this.notifierService.notify('success', 'Profile updated successfully');
-        console.log('updatedProfile', response);
-      },
-      error => {
-        this.notifierService.notify('error', 'Something went wrong');
-      });
-  }
-
-  IsValid(UserEditProfileForm: FormGroup): boolean {
-    return UserEditProfileForm.invalid;
-  }
-  get introduction(): AbstractControl {
-    return this.UserEditProfileForm.get('Introduction');
-  }
-  get lookingfor(): AbstractControl {
-    return this.UserEditProfileForm.get('LookingFor');
-  }
-  get interets(): AbstractControl {
-    return this.UserEditProfileForm.get('Interests');
-  }
-  get city(): AbstractControl {
-    return this.UserEditProfileForm.get('City');
-  }
-  get country(): AbstractControl {
-    return this.UserEditProfileForm.get('Country');
-  }
-
-  /**
-   *
-   * @param UserEditProfileForm To - Do
-   */
-  CompareFormObjectWithDBUserObject(UserEditProfileForm: FormGroup) {
-    return Object.is(this.UserDetail, UserEditProfileForm.value);
   }
 }

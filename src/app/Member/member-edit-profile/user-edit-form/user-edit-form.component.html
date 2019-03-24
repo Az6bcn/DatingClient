@@ -1,0 +1,65 @@
+<form [formGroup]="UserEditProfileForm">
+    <div class="form-group">
+      <label for="description">Description: </label>
+      <textarea type="text" formControlName="Introduction" class="form-control" id="description"
+        placeholder="Enter description"></textarea>
+
+      <!-- Errors -->
+      <div *ngIf='introduction.touched && introduction.invalid' class="alert alert-danger">
+        <div *ngIf='introduction.errors.required'> This field is required </div>
+      </div>
+    </div>
+
+
+    <div class="form-group">
+      <label for="lookingfor">Looking For: </label>
+      <textarea type="text" formControlName="LookingFor" class="form-control" id="lookingfor"
+        placeholder="Enter description"></textarea>
+
+      <!-- Errors -->
+      <div *ngIf='lookingfor.touched && lookingfor.invalid' class="alert alert-danger">
+        <div *ngIf='lookingfor.errors.required'> This field is required </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="interests">Interests: </label>
+      <textarea type="text" formControlName="Interests" class="form-control" id="interests"
+        placeholder="Enter description"></textarea>
+      <!-- Errors -->
+      <div *ngIf='interets.touched && interets.invalid' class="alert alert-danger">
+        <div *ngIf='interets.errors.required'> This field is required </div>
+      </div>
+    </div>
+
+    <br>
+    <br>
+    <label>Location Details: </label>
+    <div class="form-inline">
+      <!-- <div class="form-group mb-2"> -->
+        <div class='form-group mb-2'>
+          <label for="city">City: </label>
+          <input type="text" formControlName="City" class="form-control" id="city" placeholder="Enter description">
+          <!-- Errors -->
+          <div *ngIf='city.touched && city.invalid' class="alert alert-danger">
+            <div *ngIf='city.errors.required'> This field is required </div>
+          </div>
+        </div>
+        <div class="form-group mx-sm-3 mb-2">
+          <label for="country">Country: </label>
+          <input type="text" formControlName="Country" class="form-control" id="country"
+            placeholder="Enter description">
+          <!-- Errors -->
+          <div *ngIf='country.touched && country.invalid' class="alert alert-danger">
+            <div *ngIf='country.errors.required'> This field is required </div>
+          </div>
+        </div>
+      </div>
+    <!-- </div> -->
+    <div class='row'>
+        <div class='col-md-12 text-right'>
+          <button type="button" class="btn btn-success "
+          [disabled]='IsValid(UserEditProfileForm)' (click)='UpdateProfile(UserEditProfileForm.value)'>Save Changes</button>
+        </div>
+      </div>
+  </form>

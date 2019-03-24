@@ -1,0 +1,24 @@
+
+
+
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a class="nav-link" [ngClass]="{
+        'active': showEditProfileDiv,
+        'inactiveTabsColor': !showEditProfileDiv
+      }" data-toggle="tab" (click)='showEditProfile()'>Edit Profile</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" [ngClass]="{
+        'active': showEditPhotosDiv,
+        'inactiveTabsColor': !showEditPhotosDiv
+      }" (click)='showEditPhotos()'> Edit Photos</a>
+    </li>
+  </ul>
+  <div *ngIf='showEditProfileDiv'>
+      <app-user-edit-form *ngIf='userDetailToEdit' [UserDetail]='userDetailToEdit'></app-user-edit-form>
+    </div>
+    <div *ngIf='showEditPhotosDiv'>
+        <app-user-edit-photo></app-user-edit-photo>
+    </div>
+

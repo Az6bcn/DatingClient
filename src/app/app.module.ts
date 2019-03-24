@@ -27,6 +27,9 @@ import { UserAboutComponent } from './user-about/user-about.component';
 import { UserDetailNavCardComponent } from './user-detail-nav-card/user-detail-nav-card.component';
 import { NgxGalleryModule } from 'ngx-gallery';
 import { MemberEditProfileComponent } from './Member/member-edit-profile/member-edit-profile.component';
+import { UserEditProfilenavCardComponent } from './Member/member-edit-profile/user-edit-profilenav-card/user-edit-profilenav-card.component';
+import { UserEditFormComponent } from './Member/member-edit-profile/user-edit-form/user-edit-form.component';
+import { UserEditPhotoComponent } from './Member/member-edit-profile/user-edit-photo/user-edit-photo.component';
 
 
 @NgModule({
@@ -45,7 +48,10 @@ import { MemberEditProfileComponent } from './Member/member-edit-profile/member-
                  UserMessagesComponent,
                  UserAboutComponent,
                  UserDetailNavCardComponent,
-                 MemberEditProfileComponent
+                 MemberEditProfileComponent,
+                 UserEditProfilenavCardComponent,
+                 UserEditFormComponent,
+                 UserEditPhotoComponent
                  ],
   imports: [BrowserModule, HttpClientModule, ReactiveFormsModule, NotifierModule, NgxGalleryModule,
     JwtModule.forRoot({

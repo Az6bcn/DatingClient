@@ -19,7 +19,7 @@ export class UserDetailNavCardComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    if (UserDetails) this.showAboutDiv = true;
+    if (this.userDetails) this.showAboutDiv = true;
   }
   showInterests(): boolean {
     this.showAboutDiv = false;
