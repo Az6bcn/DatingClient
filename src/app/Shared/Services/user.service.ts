@@ -2,7 +2,7 @@ import { environment } from './../../../environments/environment';
 
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { User } from '../../Model/User';
-import { Observable, throwError as observableThrowError,} from 'rxjs';
+import { Observable, throwError as observableThrowError} from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';

@@ -30,6 +30,9 @@ import { MemberEditProfileComponent } from './Member/member-edit-profile/member-
 import { UserEditProfilenavCardComponent } from './Member/member-edit-profile/user-edit-profilenav-card/user-edit-profilenav-card.component';
 import { UserEditFormComponent } from './Member/member-edit-profile/user-edit-form/user-edit-form.component';
 import { UserEditPhotoComponent } from './Member/member-edit-profile/user-edit-photo/user-edit-photo.component';
+import { FileUploadModule } from 'ng2-file-upload';
+import { UserPhotoEditorComponent } from './Member/member-edit-profile/user-edit-photo/user-photo-editor/user-photo-editor.component';
+import { PhotoService } from './Shared/Services/photo.service';
 
 
 @NgModule({
@@ -51,9 +54,10 @@ import { UserEditPhotoComponent } from './Member/member-edit-profile/user-edit-p
                  MemberEditProfileComponent,
                  UserEditProfilenavCardComponent,
                  UserEditFormComponent,
-                 UserEditPhotoComponent
+                 UserEditPhotoComponent,
+                 UserPhotoEditorComponent
                  ],
-  imports: [BrowserModule, HttpClientModule, ReactiveFormsModule, NotifierModule, NgxGalleryModule,
+  imports: [BrowserModule, HttpClientModule, ReactiveFormsModule, NotifierModule, NgxGalleryModule, FileUploadModule,
     JwtModule.forRoot({
       config: {
           tokenGetter: () => {
@@ -69,7 +73,7 @@ import { UserEditPhotoComponent } from './Member/member-edit-profile/user-edit-p
     {path: 'messages', component: MessagesComponent, canActivate: [AuthGuardService]},
     {path: '**', component: MemberListComponent, canActivate: [AuthGuardService]}
   ])],
-  providers: [AuthService, JwtHelperService, AuthGuardService, UserDetailResolverService],
+  providers: [AuthService, JwtHelperService, AuthGuardService, UserDetailResolverService, PhotoService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

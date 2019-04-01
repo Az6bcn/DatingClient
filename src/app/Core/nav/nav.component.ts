@@ -54,7 +54,7 @@ export class NavComponent implements OnInit {
       },
       (error: AppError) => {
         if (error instanceof UnAuthorizedError) {
-          this.notifierService.notify('error', 'lease Register to login');
+          this.notifierService.notify('error', 'Please Register to login');
         } else {
           this.notifierService.notify('error', 'Something went worng... Please try again in few minutes');
 
