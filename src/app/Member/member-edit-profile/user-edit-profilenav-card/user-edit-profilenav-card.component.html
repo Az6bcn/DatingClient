@@ -19,6 +19,6 @@
       <app-user-edit-form *ngIf='userDetailToEdit' [UserDetail]='userDetailToEdit'></app-user-edit-form>
     </div>
     <div *ngIf='showEditPhotosDiv'>
-        <app-user-edit-photo [(photos)]='userDetailToEdit.Photos'></app-user-edit-photo>
+        <app-user-edit-photo [(photos)]='userDetailToEdit.Photos'(photosChange)='PhotoChanged($event)'></app-user-edit-photo>
     </div>
 

@@ -1,9 +1,11 @@
+import { DataSharedService } from './../../../Shared/Services/DataSharedService';
 import { PhotoService } from './../../../Shared/Services/photo.service';
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FileSelectDirective, FileDropDirective, FileUploader, FileUploaderOptions } from 'ng2-file-upload/ng2-file-upload';
 import { environment } from '../../../../environments/environment';
 import { Photo } from '../../../../app/Model/Photo';
+import { NotifierService } from 'angular-notifier';
 
 @Component({
   selector: 'app-user-edit-photo',
@@ -23,7 +25,9 @@ export class UserEditPhotoComponent implements OnInit {
   public hasBaseDropZoneOver = false;
   public hasAnotherDropZoneOver = false;
   constructor(private activatedRoute: ActivatedRoute,
-              private photoService: PhotoService) {
+              private photoService: PhotoService,
+              private dataSharedService: DataSharedService,
+              private notifierService: NotifierService) {
     this.photos = new Array<Photo>();
   }
   ngOnInit() {
@@ -45,8 +49,25 @@ export class UserEditPhotoComponent implements OnInit {
 
   SetAsMain (photoID: number) {
     // send to server
+    this.photoService.SetMainPhoto(photoID, this.userID)
+      .subscribe(response => {
+        // successfull => change previous main to No and current photoID as main,
+        this.photos.find(p => p.IsMain === true).IsMain = false;
 
-    // successfull => change current main to No and select as main, reemit list
+        this.photos.find(p => p.ID === photoID).IsMain = true;
+        const currentMainPhoto = this.photos.find(p => p.ID === photoID);
+
+        //reemit list
+        this.photosChange.emit(this.photos);
+
+        //change main in sharedData service
+        this.dataSharedService.ChangeMessage(currentMainPhoto.Url);
+
+        this.notifierService.notify('success', 'Main photo changed successfully');
+      },
+      error => {
+        this.notifierService.notify('error', 'error changing main photo, try again later');
+      });
 
 
   }
@@ -61,9 +82,11 @@ export class UserEditPhotoComponent implements OnInit {
         this.photos.splice(photoIndex, 1);
         // remit list
         this.photosChange.emit(this.photos);
+
+        this.notifierService.notify('success', 'Photo delete successfully');
       },
       error => {
-        alert('error deleting');
+        this.notifierService.notify('error', 'error deleting photo, try again later');
       });
   }
 

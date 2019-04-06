@@ -1,3 +1,4 @@
+import { DataSharedService } from './../../Shared/Services/DataSharedService';
 import { UserEditFormComponent } from './user-edit-form/user-edit-form.component';
 import { FormBuilder, FormGroup, Validators, FormControl, AbstractControl } from '@angular/forms';
 import { finalize } from 'rxjs/operators';
@@ -33,7 +34,6 @@ export class MemberEditProfileComponent implements OnInit {
         )
       .subscribe((response: UserDetails) => {
         this.UserDetail = response;
-        console.log(this.UserDetail);
       });
     }
   }

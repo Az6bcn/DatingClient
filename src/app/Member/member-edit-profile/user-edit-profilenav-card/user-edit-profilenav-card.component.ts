@@ -1,3 +1,4 @@
+import { Photo } from './../../../Model/Photo';
 import { UserDetails } from './../../../Model/UserDetails';
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 
@@ -8,13 +9,13 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 })
 export class UserEditProfilenavCardComponent implements OnInit {
 @Input() userDetailToEdit: UserDetails;
+@Output() userDetailToEditChange = new EventEmitter<UserDetails>();
 showEditProfileDiv =  false;
 showEditPhotosDiv = false;
 
   constructor() { }
 
   ngOnInit() {
-    console.log(this.userDetailToEdit);
     if (this.userDetailToEdit !== null) this.showEditProfileDiv = true;
   }
   showEditProfile(): boolean {
@@ -26,4 +27,12 @@ showEditPhotosDiv = false;
     return this.showEditPhotosDiv = !this.showEditPhotosDiv;
   }
 
+  PhotoChanged(photos: Array<Photo>) {
+    const newMain = photos.find(p => p.IsMain === true);
+
+    this.userDetailToEdit.Photos = photos;
+    this.userDetailToEdit.PhotoUrl = newMain.Url;
+
+    this.userDetailToEditChange.emit(this.userDetailToEdit);
+  }
 }

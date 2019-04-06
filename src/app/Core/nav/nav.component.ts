@@ -8,7 +8,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { Login } from '../..//Model/Login';
 import { AppError } from '../../Errors/AppError';
 import { UnAuthorizedError } from '../../Errors/UnAuthorizedError';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-nav',
@@ -22,6 +22,7 @@ export class NavComponent implements OnInit {
   userID: string;
   private mainPhotoUrl: string;
   mainPhotoUrl$: Observable<any>;
+  mainPhotoLocalStorage;
 
   constructor(
     private readonly fb: FormBuilder,
@@ -40,6 +41,22 @@ export class NavComponent implements OnInit {
 
     // tslint:disable-next-line:curly
     if (this.isLoggedIn) this.welcomeUser = `Welcome ${this.getUserNameFromToken()}`;
+
+
+    this.dataService.currentMessage
+    .subscribe(resp => {
+      this.mainPhotoUrl$ = of(resp);
+
+      if (resp) {
+        localStorage.setItem('mainPhotoURL', resp);
+      }
+
+    });
+
+    this.mainPhotoLocalStorage = localStorage.getItem('mainPhotoURL');
+    if (this.mainPhotoLocalStorage) {
+      this.mainPhotoUrl$ = of(this.mainPhotoLocalStorage);
+    }
   }
 
   signIn(userLoginFormValue: Login) {
@@ -54,8 +71,6 @@ export class NavComponent implements OnInit {
 
           if (this.mainPhotoUrl.length > 0 ) {
             this.dataService.ChangeMessage(this.mainPhotoUrl);
-
-            this.mainPhotoUrl$ = this.dataService.currentMessage;
           }
 
           // get returnURL if any

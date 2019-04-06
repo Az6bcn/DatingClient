@@ -37,7 +37,7 @@
         <ul class="navbar-nav  navbar-right">
           <li class="nav-item">
               <div class="card" style="width: 3rem;">
-                  <img class="card-img-top" [src]="mainPhotoUrl$ | async" alt="Card image cap">
+                  <img class="card-img-top" [src]="(mainPhotoUrl$ | async) || (dataService.currentMessage | async)" alt="Card image cap">
               </div>
           </li>
           <li class="nav-item">

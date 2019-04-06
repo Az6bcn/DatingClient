@@ -36,6 +36,16 @@ DeletePhoto(photoID: number, userID: number) {
     );
 }
 
+SetMainPhoto(photoID: number, userID: number) {
+  const setMainPhotoUrl = `/users/${userID}/photos/${photoID}`;
+   const url = `${this.baseURL}${setMainPhotoUrl}`;
+
+  return this.http.put<Photo>(url, photoID, this.httpOptions)
+    .pipe(
+      catchError(this.handleError)
+    );
+}
+
 
 private handleError(error: HttpErrorResponse) {
   // /* Handling Expected Error (Imagine we sending invalid data to the Server response will be Bad Request, status code 400)
