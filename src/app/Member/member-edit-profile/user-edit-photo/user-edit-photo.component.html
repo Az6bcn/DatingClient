@@ -4,8 +4,8 @@
     <img [src] ='p.Url' class="card-img" height='150' width='130' style='margin: 5px 5px 5px'>
 
   <div class='container center'>
-    <button type='button' class='btn btn-success' style='margin-right: 5px' (click)='SetAsMain(p.ID)'> Main </button>
-    <button type='button' class='btn btn-danger' (click)='DeletePhoto(p.ID)'>
+    <button type='button' class='btn btn-success' style='margin-right: 5px' (click)='SetAsMain(p.ID)' [disabled]='p.IsMain'> Main </button>
+    <button type='button' class='btn btn-danger' (click)='DeletePhoto(p.ID)' [disabled]='p.IsMain'>
         <i class="far fa-trash-alt"></i>
     </button>
   </div>

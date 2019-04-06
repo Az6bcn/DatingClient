@@ -30,7 +30,7 @@ DeletePhoto(photoID: number, userID: number) {
   const deletePhotoUrl = `/users/${userID}/photos/${photoID}`;
    const url = `${this.baseURL}${deletePhotoUrl}`;
 
-  return this.http.delete<Photo>(url,this.httpOptions)
+  return this.http.delete<Photo>(url, this.httpOptions)
     .pipe(
       catchError(this.handleError)
     );

@@ -1,3 +1,4 @@
+import { DataSharedService } from './../../Shared/Services/DataSharedService';
 import { AuthService } from './../Services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
@@ -7,6 +8,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { Login } from '../..//Model/Login';
 import { AppError } from '../../Errors/AppError';
 import { UnAuthorizedError } from '../../Errors/UnAuthorizedError';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-nav',
@@ -18,6 +20,8 @@ export class NavComponent implements OnInit {
   isLoggedIn: boolean;
   welcomeUser: string;
   userID: string;
+  private mainPhotoUrl: string;
+  mainPhotoUrl$: Observable<any>;
 
   constructor(
     private readonly fb: FormBuilder,
@@ -25,7 +29,8 @@ export class NavComponent implements OnInit {
     private notifierService: NotifierService,
     private router: Router,
     private route: ActivatedRoute,
-    private jwtHelperService: JwtHelperService
+    private jwtHelperService: JwtHelperService,
+    private dataService: DataSharedService
   ) {}
 
   ngOnInit() {
@@ -34,7 +39,7 @@ export class NavComponent implements OnInit {
     this.isLoggedIn = this.jwtHelperService.tokenGetter() != null ? true : false;
 
     // tslint:disable-next-line:curly
-    if(this.isLoggedIn) this.welcomeUser = `Welcome ${this.getUserNameFromToken()}`;
+    if (this.isLoggedIn) this.welcomeUser = `Welcome ${this.getUserNameFromToken()}`;
   }
 
   signIn(userLoginFormValue: Login) {
@@ -46,6 +51,12 @@ export class NavComponent implements OnInit {
           this.isLoggedIn = response;
           this.notifierService.notify('success', 'log in succesfully');
           this.welcomeUser = `Welcome ${this.getUserNameFromToken()}`;
+
+          if (this.mainPhotoUrl.length > 0 ) {
+            this.dataService.ChangeMessage(this.mainPhotoUrl);
+
+            this.mainPhotoUrl$ = this.dataService.currentMessage;
+          }
 
           // get returnURL if any
           const returnURL = this.route.snapshot.queryParams['returnURL'];
@@ -89,6 +100,7 @@ export class NavComponent implements OnInit {
     if (!this.jwtHelperService.isTokenExpired(token)) {
       const decodedToken = this.jwtHelperService.decodeToken(token);
       this.userID = decodedToken.nameid;
+      this.mainPhotoUrl = decodedToken.MainPhotoURL;
       console.log(decodedToken);
       userName = decodedToken.unique_name;
     }

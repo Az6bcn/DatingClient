@@ -33,6 +33,7 @@ import { UserEditPhotoComponent } from './Member/member-edit-profile/user-edit-p
 import { FileUploadModule } from 'ng2-file-upload';
 import { UserPhotoEditorComponent } from './Member/member-edit-profile/user-edit-photo/user-photo-editor/user-photo-editor.component';
 import { PhotoService } from './Shared/Services/photo.service';
+import { DataSharedService } from './Shared/Services/DataSharedService';
 
 
 @NgModule({
@@ -73,7 +74,7 @@ import { PhotoService } from './Shared/Services/photo.service';
     {path: 'messages', component: MessagesComponent, canActivate: [AuthGuardService]},
     {path: '**', component: MemberListComponent, canActivate: [AuthGuardService]}
   ])],
-  providers: [AuthService, JwtHelperService, AuthGuardService, UserDetailResolverService, PhotoService],
+  providers: [AuthService, JwtHelperService, AuthGuardService, UserDetailResolverService, PhotoService, DataSharedService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
