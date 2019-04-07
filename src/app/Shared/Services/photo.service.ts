@@ -1,3 +1,4 @@
+import { PhotoForCreationDTO } from './../../Model/PhotoForCreationDTO';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -41,6 +42,16 @@ SetMainPhoto(photoID: number, userID: number) {
    const url = `${this.baseURL}${setMainPhotoUrl}`;
 
   return this.http.put<Photo>(url, photoID, this.httpOptions)
+    .pipe(
+      catchError(this.handleError)
+    );
+}
+
+Save(formdata: FormData, userID: number): Observable<PhotoForCreationDTO> {
+  const savePhotoUrl = `/users/${userID}/photos`;
+   const url = `${this.baseURL}${savePhotoUrl}`;
+
+  return this.http.post<PhotoForCreationDTO>(url, formdata, this.httpOptions)
     .pipe(
       catchError(this.handleError)
     );

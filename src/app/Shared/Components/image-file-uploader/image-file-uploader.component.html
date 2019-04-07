@@ -1,0 +1,33 @@
+<div class='container-fluid'>
+    <label class="image-upload-container btn btn-bwm">
+        <span>Select Image</span>
+        <input #imageInput
+               type="file"
+               accept="image/*"
+               (change)="ProcessFile(imageInput)">
+    </label>
+
+    <div *ngIf='filelist && filelist.length > 0'>
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Size</th>
+              </tr>
+            </thead>
+            <tbody *ngFor='let f of filelist | keyvalue; index as i'>
+              <tr>
+                <th scope="row">{{i}}</th>
+                <td>{{f.value.name}}</td>
+                <td>{{f.value.size + ' Bytes'}} </td>
+              </tr>
+            </tbody>
+          </table>
+          <br>
+          <br>
+          <div class='class="col-md-12 text-right'>
+            <button type='button' class='btn btn-primary text-right' (click)='Save(imageInput)'> Save</button>
+          </div>
+    </div>
+</div>

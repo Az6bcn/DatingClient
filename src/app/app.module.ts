@@ -34,6 +34,7 @@ import { FileUploadModule } from 'ng2-file-upload';
 import { UserPhotoEditorComponent } from './Member/member-edit-profile/user-edit-photo/user-photo-editor/user-photo-editor.component';
 import { PhotoService } from './Shared/Services/photo.service';
 import { DataSharedService } from './Shared/Services/DataSharedService';
+import { ImageFileUploaderComponent } from './Shared/Components/image-file-uploader/image-file-uploader.component';
 
 
 @NgModule({
@@ -56,7 +57,8 @@ import { DataSharedService } from './Shared/Services/DataSharedService';
                  UserEditProfilenavCardComponent,
                  UserEditFormComponent,
                  UserEditPhotoComponent,
-                 UserPhotoEditorComponent
+                 UserPhotoEditorComponent,
+                 ImageFileUploaderComponent
                  ],
   imports: [BrowserModule, HttpClientModule, ReactiveFormsModule, NotifierModule, NgxGalleryModule, FileUploadModule,
     JwtModule.forRoot({

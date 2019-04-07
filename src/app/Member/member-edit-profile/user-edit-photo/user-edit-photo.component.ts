@@ -1,3 +1,4 @@
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { DataSharedService } from './../../../Shared/Services/DataSharedService';
 import { PhotoService } from './../../../Shared/Services/photo.service';
 import { ActivatedRoute } from '@angular/router';
@@ -18,7 +19,7 @@ export class UserEditPhotoComponent implements OnInit {
   private baseUrl: string = environment.baseURL;
   private urlPhoto: string;
   private options: FileUploaderOptions;
-  private userID: number;
+  userID: number;
 
 
   public uploader: FileUploader;
@@ -27,7 +28,8 @@ export class UserEditPhotoComponent implements OnInit {
   constructor(private activatedRoute: ActivatedRoute,
               private photoService: PhotoService,
               private dataSharedService: DataSharedService,
-              private notifierService: NotifierService) {
+              private notifierService: NotifierService,
+              private jwtHelperService: JwtHelperService) {
     this.photos = new Array<Photo>();
   }
   ngOnInit() {
@@ -36,7 +38,7 @@ export class UserEditPhotoComponent implements OnInit {
     if (this.userID) {
       this.urlPhoto = `/users/${this.userID}/photos`;
       const urls = `${this.baseUrl}${this.urlPhoto}`;
-      this.uploader = new FileUploader({url: urls});
+      this.uploader = new FileUploader({url: urls, authToken: 'Bearer ' + this.jwtHelperService.tokenGetter()});
     }
   }
   public fileOverBase(e: any): void {
