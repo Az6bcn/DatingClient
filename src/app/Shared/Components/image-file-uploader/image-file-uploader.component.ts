@@ -2,7 +2,8 @@ import { Photo } from './../../../Model/Photo';
 import { PhotoService } from './../../Services/photo.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { map } from 'rxjs/operators';
+import { map, finalize } from 'rxjs/operators';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-image-file-uploader',
@@ -14,6 +15,7 @@ export class ImageFileUploaderComponent implements OnInit {
   @Input() userID: number;
   @Input() photos: Array<Photo>;
   @Output()photosChange = new EventEmitter<Array<Photo>>();
+  isLoading$ = new BehaviorSubject<boolean>(false);
   constructor(private photoService: PhotoService) {
   }
 
@@ -25,6 +27,7 @@ export class ImageFileUploaderComponent implements OnInit {
   }
 
   Save(imageInput: HTMLInputElement) {
+    this.isLoading$.next(true);
     const formdata = new FormData();
 
     formdata.append('UserID', this.userID.toString());
@@ -33,6 +36,7 @@ export class ImageFileUploaderComponent implements OnInit {
 
     this.photoService.Save(formdata, this.userID)
       .pipe(
+        finalize(() => this.isLoading$.next(false)),
         map(p => {
           return new Photo(p.ID, p.Url, p.Description, p.IsMain, p.DateAdded);
         })

@@ -1,4 +1,4 @@
-<div class='container-fluid'>
+<div class='container-fluid' *ngIf='!(isLoading$ | async)'>
     <label class="image-upload-container btn btn-bwm">
         <span>Select Image</span>
         <input #imageInput
@@ -30,4 +30,8 @@
             <button type='button' class='btn btn-primary text-right' (click)='Save(imageInput)'> Save</button>
           </div>
     </div>
+</div>
+
+<div class='container-fluid' *ngIf='(isLoading$ | async)'>
+  <app-spinner></app-spinner>
 </div>
