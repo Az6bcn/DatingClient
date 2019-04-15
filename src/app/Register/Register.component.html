@@ -1,25 +1,84 @@
 <ng-container>
   <div class="container-fluid ">
     <div class="col-sm-12 ">
-  <form [formGroup]="registerForm">
+      <form [formGroup]="registerForm">
 
-    <h2 class="text-center text primary">Sign Up</h2>
+        <h2 class="text-center text primary">Sign Up</h2>
 
-    <hr>
-    <div class="form-group" formGroupName="userRegister">
-      <input type="text" formControlName="username" class="form-control" placeholder="Username">
+        <hr>
+        <div formGroupName="userRegister">
+          <div class="form-group">
+            <input type="text" formControlName="Username" class="form-control" placeholder="Username">
+
+            <!-- Errors -->
+            <div *ngIf='username.touched && username.invalid' class="alert alert-danger">
+              <div *ngIf='username.errors.required'> This field is required </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <input type="text" formControlName="Knownas" class="form-control" placeholder="Known as">
+
+            <!-- Errors -->
+            <div *ngIf='knownas.touched && knownas.invalid' class="alert alert-danger">
+              <div *ngIf='knownas.errors.required'> This field is required </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <!-- <input type="datetime-local" formControlName="Dateofbirth" class="form-control" placeholder="Date Of Birth"> -->
+            <my-date-picker name="Dateofbirth" [options]="myDatePickerOptions"
+            formControlName="Dateofbirth"></my-date-picker>
+            <!-- Errors -->
+            <div *ngIf='dateofbirth.touched && dateofbirth.invalid' class="alert alert-danger">
+              <div *ngIf='dateofbirth.errors.required'> This field is required </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <input type="text" formControlName="City" class="form-control" placeholder="City">
+
+            <!-- Errors -->
+            <div *ngIf='city.touched && city.invalid' class="alert alert-danger">
+              <div *ngIf='city.errors.required'> This field is required </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <input type="text" formControlName="Country" class="form-control" placeholder="Country">
+
+            <!-- Errors -->
+            <div *ngIf='country.touched && country.invalid' class="alert alert-danger">
+              <div *ngIf='country.errors.required'> This field is required </div>
+            </div>
+          </div>
+
+
+          <div class="form-group">
+            <input type="text" formControlName="Password" class="form-control" placeholder="Password">
+
+            <!-- Errors -->
+            <div *ngIf='password.touched && password.invalid' class="alert alert-danger">
+              <div *ngIf='password.errors.required'> This field is required </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <input type="text" formControlName="ConfirmPassword" class="form-control" placeholder="Confirm Password">
+
+            <!-- Errors -->
+            <div *ngIf='confirmedPassword.touched && confirmedPassword.invalid' class="alert alert-danger">
+              <div *ngIf='confirmedPassword.errors.required'> This field is required </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group text-center">
+          <button type="button" class="btn btn-success " (click)="register(registerForm.get('userRegister').value)"
+            style="margin-right: 15px;" [disabled]='!isFormValid(registerForm)'>Submit</button>
+          <button type="button" class="btn btn-secondary" (click)='cancel()' style="margin-left: 15px;">Cancel</button>
+        </div>
+      </form>
     </div>
-
-    <div class="form-group" formGroupName="userRegister">
-      <input type="text" formControlName="password" class="form-control" placeholder="Password">
-    </div>
-
-    <div class="form-group text-center">
-      <button type="button" class="btn btn-success " (click)="register(registerForm.get('userRegister').value)"
-       style="margin-right: 15px;" [disabled]='!isFormValid(registerForm)' >Submit</button>
-      <button type="button" class="btn btn-secondary" (click)='cancel()' style="margin-left: 15px;">Cancel</button>
-    </div>
-  </form>
-</div>
-</div>
+  </div>
 </ng-container>

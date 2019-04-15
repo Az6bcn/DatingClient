@@ -2,8 +2,9 @@ import { AuthService } from '../Core/Services/auth.service';
 import { RegisterModel } from './../Model/RegisterModel';
 import { Validators } from '@angular/forms';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, ɵConsole } from '@angular/core';
 import { NotifierService } from 'angular-notifier';
+import {IMyDpOptions} from 'mydatepicker';
 
 @Component({
   selector: 'app-Register',
@@ -11,6 +12,12 @@ import { NotifierService } from 'angular-notifier';
   styleUrls: ['./Register.component.css']
 })
 export class RegisterComponent implements OnInit {
+
+  public myDatePickerOptions: IMyDpOptions = {
+    // other options...
+    dateFormat: 'dd/mm/yyyy',
+    showClearDateBtn: true
+};
   registerForm: FormGroup;
   @Output() canceledEvent = new EventEmitter<boolean>(true);
 
@@ -21,10 +28,12 @@ export class RegisterComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+
     this.loadRegisterForm(this.fb);
   }
 
   register(user: RegisterModel) {
+    user.Dateofbirth = user.Dateofbirth['jsdate'];
     this.authService.register(user).subscribe(response => {
       this.notifierService.notify('success', 'registered successfully');
       this.cancel();
@@ -48,9 +57,48 @@ export class RegisterComponent implements OnInit {
   private static builRegisterFormGroup(builder: FormBuilder) {
     return builder.group({
       userRegister: builder.group({
-        username: ['', Validators.required],
-        password: ['', Validators.required]
+        Username: ['', Validators.required],
+        Password: ['', Validators.required],
+        ConfirmPassword: ['', Validators.required],
+        Knownas: ['', Validators.required],
+        Dateofbirth: ['', Validators.required],
+        City: ['', Validators.required],
+        Country: ['', Validators.required]
       })
     });
   }
+
+  get username() {
+    return this.registerForm.get('userRegister.Username');
+  }
+
+  get password() {
+    return this.registerForm.get('userRegister.Password');
+  }
+
+  get confirmedPassword() {
+    return this.registerForm.get('userRegister.ConfirmPassword');
+  }
+
+  get knownas() {
+    return this.registerForm.get('userRegister.Knownas');
+  }
+
+  get dateofbirth() {
+    return this.registerForm.get('userRegister.Dateofbirth');
+  }
+
+  get city() {
+    return this.registerForm.get('userRegister.City');
+  }
+
+  get country() {
+    return this.registerForm.get('userRegister.Country');
+  }
+
+
+  clearDate(): void {
+    // Clear the date using the patchValue function
+    this.registerForm.patchValue({myDate: null});
+}
 }

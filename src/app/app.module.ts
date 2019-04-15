@@ -35,6 +35,8 @@ import { UserPhotoEditorComponent } from './Member/member-edit-profile/user-edit
 import { PhotoService } from './Shared/Services/photo.service';
 import { DataSharedService } from './Shared/Services/DataSharedService';
 import { ImageFileUploaderComponent } from './Shared/Components/image-file-uploader/image-file-uploader.component';
+import { MyDatePickerModule } from 'mydatepicker';
+
 
 
 @NgModule({
@@ -60,7 +62,13 @@ import { ImageFileUploaderComponent } from './Shared/Components/image-file-uploa
                  UserPhotoEditorComponent,
                  ImageFileUploaderComponent
                  ],
-  imports: [BrowserModule, HttpClientModule, ReactiveFormsModule, NotifierModule, NgxGalleryModule, FileUploadModule,
+  imports: [BrowserModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    NotifierModule,
+    NgxGalleryModule,
+    FileUploadModule,
+    MyDatePickerModule,
     JwtModule.forRoot({
       config: {
           tokenGetter: () => {

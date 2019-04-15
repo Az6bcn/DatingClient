@@ -1,4 +1,9 @@
 export class RegisterModel {
-  username: string;
-  password: string;
+  Username: string;
+  Password: string;
+  ConfirmPassword: string;
+  Knownas: string;
+  Dateofbirth: Date;
+  City: string;
+  Country: string;
 }
