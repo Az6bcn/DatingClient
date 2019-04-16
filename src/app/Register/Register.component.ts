@@ -33,6 +33,7 @@ export class RegisterComponent implements OnInit {
   }
 
   register(user: RegisterModel) {
+    console.log(user);
     user.Dateofbirth = user.Dateofbirth['jsdate'];
     this.authService.register(user).subscribe(response => {
       this.notifierService.notify('success', 'registered successfully');
@@ -63,7 +64,8 @@ export class RegisterComponent implements OnInit {
         Knownas: ['', Validators.required],
         Dateofbirth: ['', Validators.required],
         City: ['', Validators.required],
-        Country: ['', Validators.required]
+        Country: ['', Validators.required],
+        Gender: ['', Validators.required]
       })
     });
   }
@@ -96,6 +98,9 @@ export class RegisterComponent implements OnInit {
     return this.registerForm.get('userRegister.Country');
   }
 
+  get gender() {
+    return this.registerForm.get('userRegister.Gender');
+  }
 
   clearDate(): void {
     // Clear the date using the patchValue function

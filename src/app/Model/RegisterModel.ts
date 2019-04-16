@@ -6,4 +6,5 @@ export class RegisterModel {
   Dateofbirth: Date;
   City: string;
   Country: string;
+  Gender: string;
 }
