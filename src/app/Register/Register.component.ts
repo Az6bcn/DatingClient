@@ -1,3 +1,4 @@
+import { ComparePasswordValidator } from './../Shared/CustomValidation/ComparePasswordValidator';
 import { AuthService } from '../Core/Services/auth.service';
 import { RegisterModel } from './../Model/RegisterModel';
 import { Validators } from '@angular/forms';
@@ -66,7 +67,7 @@ export class RegisterComponent implements OnInit {
         City: ['', Validators.required],
         Country: ['', Validators.required],
         Gender: ['', Validators.required]
-      })
+      }, {validator: ComparePasswordValidator.PasswordMatchValidator})
     });
   }
 
@@ -102,6 +103,10 @@ export class RegisterComponent implements OnInit {
     return this.registerForm.get('userRegister.Gender');
   }
 
+  get userregister() {
+    console.log(this.registerForm.get('userRegister'));
+    return this.registerForm.get('userRegister');
+  }
   clearDate(): void {
     // Clear the date using the patchValue function
     this.registerForm.patchValue({myDate: null});
