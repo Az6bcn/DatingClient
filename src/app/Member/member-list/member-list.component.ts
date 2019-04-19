@@ -2,7 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../Shared/Services/user.service';
 import { User } from '../../Model/User';
-import { finalize } from 'rxjs/operators';
+import { finalize, map } from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs';
 
 @Component({
@@ -20,8 +20,13 @@ export class MemberListComponent implements OnInit {
     .pipe(
       finalize( () => this.isLoading$.next(false))
     )
-    .subscribe(response => {
+    .subscribe((response: Array<User>) => {
       this.Users = response;
+      this.Users.forEach(x => {
+          if (x.PhotoURL === null) {
+            x.PhotoURL =  '../../../../../assets/user.png';
+          }
+      });
     });
   }
 
