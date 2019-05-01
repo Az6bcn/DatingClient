@@ -1,3 +1,50 @@
-<p>
-  list works!
-</p>
+
+<div class='container'>
+  <button type="button" class="btn btn-primary" (click)='(GetLikees())' style='margin-right: 10px'>Members who like me</button>
+  <button type="button" class="btn btn-primary" (click)='(GetLikers())'>Members who I like</button>
+</div>
+
+<div class='container' *ngIf='isLiker'>
+  <div class='container-fluid'>
+      <h2>Members who I have liked me : {{likedByUser.length}}</h2>
+    <div class="row">
+      <div class='col-lg-2 col-md-3 col-sm-6 mt-2 active' *ngFor='let user of likedByUser'>
+        <div class='card mb-4'>
+          <div class='card-img-wrapper'>
+            <img class="card-img-top" [src]='user.PhotoURL' alt="Card image cap">
+
+          </div>
+          <div class="card-body p-1">
+            <p class="card-text text-center mb-1">
+              <i class="fas fa-user-alt"></i> &nbsp; <strong>{{ user.Username + ', '}}{{user.Age}}</strong>
+            </p>
+            <p class="card-text text-muted text-center">{{user.City}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class='container' *ngIf='isLikee'>
+  <div class='container-fluid'>
+    <h2>Members who I liked me : {{likersOfUser.length}}</h2>
+    <div class="row">
+      <div class='col-lg-2 col-md-3 col-sm-6 mt-2' *ngFor='let user of likersOfUser'>
+        <div class='card mb-4'>
+          <div class='card-img-wrapper'>
+            <img class="card-img-top" [src]='user.PhotoURL' alt="Card image cap">
+
+          </div>
+          <div class="card-body p-1">
+            <p class="card-text text-center mb-1">
+              <i class="fas fa-user-alt"></i> &nbsp; <strong>{{ user.Username + ', '}}{{user.Age}}</strong>
+            </p>
+            <p class="card-text text-muted text-center">{{user.City}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

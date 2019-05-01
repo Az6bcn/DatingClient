@@ -9,6 +9,7 @@ export class User {
   LastActive: Date;
   PhotoURL: string;
 
+
   constructor(
     id: number,
     username: string,

@@ -6,31 +6,33 @@
           <img class="card-img-top" [src]='user.PhotoURL' alt="Card image cap">
           <ul class='list-inline member-icons animate text-center'>
             <li class='list-inline-item'>
-              <a [routerLink]="['/members', user.Id]" routerLinkActive="router-link-active">
+              <!-- <a [routerLink]="['/members', user.Id]" routerLinkActive="router-link-active"> -->
                 <button class='btn btn-primary'>
                   <i class='fa fa-user'></i>
                 </button>
-              </a>
+              <!-- </a> -->
             </li>
             <li class='list-inline-item'>
-              <a [routerLink]="['/members', user.Id]" routerLinkActive="router-link-active">
-                <button class='btn btn-primary'>
+              <!-- <a [routerLink]="['/members', user.Id]" routerLinkActive="router-link-active"> -->
+                <button class='btn btn-primary' (click)='SendLike(user.Id, user.KnownAs)'>
                   <i class='fa fa-heart'></i>
                 </button>
-              </a>
+              <!-- </a> -->
             </li>
             <li class='list-inline-item'>
-              <a [routerLink]="['/members', user.Id]" routerLinkActive="router-link-active">
+              <!-- <a [routerLink]="['/members', user.Id]" routerLinkActive="router-link-active"> -->
                 <button class='btn btn-primary'>
                   <i class='fa fa-envelope'></i>
                 </button>
-              </a>
+              <!-- </a> -->
             </li>
           </ul>
         </div>
         <div class="card-body p-1">
           <p class="card-text text-center mb-1">
-            <i class="fas fa-user-alt"></i> &nbsp; <strong>{{ user.Username + ', '}}{{user.Age}}</strong>
+            <a [routerLink]="['/members', user.Id]" routerLinkActive="router-link-active">
+              <i class="fas fa-user-alt"></i> &nbsp; <strong>{{ user.Username + ', '}}{{user.Age}}</strong>
+            </a>
           </p>
           <p class="card-text text-muted text-center">{{user.City}}</p>
         </div>

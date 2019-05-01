@@ -12,9 +12,9 @@
           <h5><strong>Age:</strong></h5>
           <p class="card-text">{{UserDetail.Age}}</p>
           <h5><strong>Last Active:</strong></h5>
-          <p class="card-text">{{UserDetail.LastActive}}</p>
+          <p class="card-text">{{UserDetail.LastActive }}</p>
           <h5><strong>Member Since:</strong></h5>
-          <p class="card-text">{{UserDetail.CreatedAt}}</p>
+          <p class="card-text">{{UserDetail.CreatedAt | date: 'mediumDate'}}</p>
         </div>
       </div>
     </div>

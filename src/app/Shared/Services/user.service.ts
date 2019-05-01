@@ -1,3 +1,4 @@
+import { Like } from './../../Model/Like';
 import { environment } from './../../../environments/environment';
 
 import { JwtHelperService } from '@auth0/angular-jwt';
@@ -21,7 +22,8 @@ export class UserService {
   private readonly allUsers = 'users/getusers';
   private readonly userByID = 'users/getuserbyid';
   private readonly editUserProfile = 'edit-profile';
-  constructor(private http: HttpClient, private jwtHelperService: JwtHelperService) { }
+  constructor(private http: HttpClient,
+             private jwtHelperService: JwtHelperService) { }
 
 private httpOptions = {
     headers: new HttpHeaders({
@@ -60,6 +62,38 @@ private httpOptions = {
       .pipe(
         catchError(this.handleError)
       );
+  }
+
+  GetUserLikers(userID: number): Observable<Array<User>> {
+    const url = `${this.baseUrl}/users/${userID}/likers`;
+
+    return this.http.get<Array<User>>(url, this.httpOptions)
+      .pipe(catchError(this.handleError));
+  }
+
+  GetUserLikees(userID: number): Observable<Array<User>> {
+    const url = `${this.baseUrl}/users/${userID}/likees`;
+
+    return this.http.get<Array<User>>(url, this.httpOptions)
+      .pipe(catchError(this.handleError));
+  }
+
+  SendLike(likerUserID: number, likeeUserID: number) {
+    const url = `${this.baseUrl}/users/${likerUserID}/likes/${likeeUserID}`;
+
+    return this.http.post<Array<Like>>(url, null, this.httpOptions)
+      .pipe(catchError(this.handleError));
+  }
+
+  GetCurrentUserID(): number {
+    const token = this.jwtHelperService.tokenGetter();
+
+    // check token is not expired
+    if (!this.jwtHelperService.isTokenExpired()) {
+      const tokenDecoded = this.jwtHelperService.decodeToken(token);
+      return (tokenDecoded['nameid'] as number);
+    }
+      return 0;
   }
 
 
