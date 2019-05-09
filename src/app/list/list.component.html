@@ -4,6 +4,9 @@
   <button type="button" class="btn btn-primary" (click)='(GetLikers())'>Members who I like</button>
 </div>
 
+<app-spinner *ngIf='(isLoading$ | async)'></app-spinner>
+
+
 <div class='container' *ngIf='isLiker'>
   <div class='container-fluid'>
       <h2>Members who I have liked me : {{likedByUser.length}}</h2>

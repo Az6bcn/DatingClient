@@ -1,6 +1,8 @@
+import { BehaviorSubject } from 'rxjs';
 import { UserService } from './../Shared/Services/user.service';
 import { User } from './../Model/User';
 import { Component, OnInit } from '@angular/core';
+import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-list',
@@ -14,38 +16,51 @@ export class ListComponent implements OnInit {
   likedByUser: Array<User>;
   isLikee: boolean;
   isLiker: boolean;
+  isLoading$ = new BehaviorSubject<boolean>(true);
+
   constructor(private userService: UserService) { }
 
   ngOnInit() {
-    this.userService.GetUserLikers(1)
+    // get userID
+    this.userID = this.userService.GetCurrentUserID();
+
+    if (this.userID > 0) {
+      this.userService.GetUserLikers(this.userID)
+      .pipe(
+        finalize(() => this.isLoading$.next(false))
+        )
       .subscribe( response => {
         this.likedByUser = response;
         this.isLiker = true;
-        console.table(response);
       });
-    // get userID
+    }
+
   }
 
 
   GetLikees() {
     this.isLiker = false;
 
-    this.userService.GetUserLikees(1)
+    this.userService.GetUserLikees(this.userID)
+      .pipe(
+      finalize(() => this.isLoading$.next(false))
+      )
       .subscribe( response => {
         this.likersOfUser = response;
         this.isLikee = true;
-        console.log(response);
       });
   }
 
   GetLikers() {
     this.isLikee = false;
 
-    this.userService.GetUserLikers(1)
+    this.userService.GetUserLikers(this.userID)
+      .pipe(
+        finalize(() => this.isLoading$.next(false))
+        )
       .subscribe( response => {
         this.likedByUser = response;
         this.isLiker = true;
-        console.table(response);
       });
   }
 }
