@@ -65,6 +65,8 @@ export class NavComponent implements OnInit {
     }
     else {
       this.isLoggedIn = false;
+      localStorage.removeItem('Token');
+      localStorage.removeItem('mainPhotoURL');
     }
   }
 
@@ -136,7 +138,6 @@ export class NavComponent implements OnInit {
     const token = this.jwtHelperService.tokenGetter();
 
     if (token) {
-      console.log('isExpired',this.jwtHelperService.isTokenExpired(token));
       return this.jwtHelperService.isTokenExpired(token);
     }
 
