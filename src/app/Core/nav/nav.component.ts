@@ -57,6 +57,15 @@ export class NavComponent implements OnInit {
     if (this.mainPhotoLocalStorage) {
       this.mainPhotoUrl$ = of(this.mainPhotoLocalStorage);
     }
+
+    //redirect to matches if token still valid
+    if (!this.isExpired()) {
+      //redirect to matches
+        this.router.navigate(['/members'],  {relativeTo: this.route});
+    }
+    else {
+      this.isLoggedIn = false;
+    }
   }
 
   signIn(userLoginFormValue: Login) {
@@ -90,6 +99,7 @@ export class NavComponent implements OnInit {
 
   logOut() {
     localStorage.removeItem('Token');
+    localStorage.removeItem('mainPhotoURL');
     this.isLoggedIn = false;
     this.notifierService.notify('success', 'log out succesfully');
     this.router.navigate(['../'], {relativeTo: this.route});
@@ -120,5 +130,16 @@ export class NavComponent implements OnInit {
       userName = decodedToken.unique_name;
     }
     return userName;
+  }
+
+  isExpired(): boolean {
+    const token = this.jwtHelperService.tokenGetter();
+
+    if (token) {
+      console.log('isExpired',this.jwtHelperService.isTokenExpired(token));
+      return this.jwtHelperService.isTokenExpired(token);
+    }
+
+    return false;
   }
 }

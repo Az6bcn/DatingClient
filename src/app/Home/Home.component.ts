@@ -10,7 +10,8 @@ export class HomeComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
   registerToggle() {
     this.showRegister = !this.showRegister;
