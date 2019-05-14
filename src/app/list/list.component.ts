@@ -17,7 +17,8 @@ export class ListComponent implements OnInit {
   isLikee: boolean;
   isLiker: boolean;
   isLoading$ = new BehaviorSubject<boolean>(true);
-
+  likeeIsActive = false;
+  likersIsActive = true;
   constructor(private userService: UserService) { }
 
   ngOnInit() {
@@ -40,6 +41,8 @@ export class ListComponent implements OnInit {
 
   GetLikees() {
     this.isLiker = false;
+    this.likersIsActive = false;
+    this.likeeIsActive = true;
 
     this.userService.GetUserLikees(this.userID)
       .pipe(
@@ -53,6 +56,8 @@ export class ListComponent implements OnInit {
 
   GetLikers() {
     this.isLikee = false;
+    this.likeeIsActive = false;
+    this.likersIsActive = true;
 
     this.userService.GetUserLikers(this.userID)
       .pipe(

@@ -1,7 +1,20 @@
 
 <div class='container'>
-  <button type="button" class="btn btn-primary" (click)='(GetLikees())' style='margin-right: 10px'>Members who like me</button>
-  <button type="button" class="btn btn-primary" (click)='(GetLikers())'>Members who I like</button>
+  <button type="button"  (click)='(GetLikees())' style='margin-right: 10px'
+  [ngClass]= "{
+    btn: true,
+    'btn-primary': true,
+    active: likeeIsActive
+  }"
+  >Members who like me</button>
+
+  <button type="button"  (click)='(GetLikers())'
+  [ngClass]=" {
+    btn: true,
+    'btn-primary': true,
+    active: likersIsActive
+  }"
+  >Members who I like</button>
 </div>
 
 <app-spinner *ngIf='(isLoading$ | async)'></app-spinner>
