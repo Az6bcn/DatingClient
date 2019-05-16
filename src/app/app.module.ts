@@ -36,6 +36,9 @@ import { PhotoService } from './Shared/Services/photo.service';
 import { DataSharedService } from './Shared/Services/DataSharedService';
 import { ImageFileUploaderComponent } from './Shared/Components/image-file-uploader/image-file-uploader.component';
 import { MyDatePickerModule } from 'mydatepicker';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { DataTableComponent } from './Shared/data-table/data-table.component';
+
 
 
 
@@ -60,7 +63,8 @@ import { MyDatePickerModule } from 'mydatepicker';
                  UserEditFormComponent,
                  UserEditPhotoComponent,
                  UserPhotoEditorComponent,
-                 ImageFileUploaderComponent
+                 ImageFileUploaderComponent,
+                 DataTableComponent
                  ],
   imports: [BrowserModule,
     HttpClientModule,
@@ -69,6 +73,7 @@ import { MyDatePickerModule } from 'mydatepicker';
     NgxGalleryModule,
     FileUploadModule,
     MyDatePickerModule,
+    NgbModule,
     JwtModule.forRoot({
       config: {
           tokenGetter: () => {

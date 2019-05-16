@@ -1,3 +1,35 @@
-<p>
-  messages works!
-</p>
+<div class='container'>
+  <button type="button"  (click)='Unread()' style='margin-right: 10px'
+  [ngClass]= "{
+    btn: true,
+    'btn-primary': true,
+    active: unreadIsActive
+  }"
+  >Unread</button>
+
+  <button type="button"  (click)='Inbox()' style='margin-right: 10px'
+  [ngClass]=" {
+    btn: true,
+    'btn-primary': true,
+    active: inboxIsActive
+  }"
+  >Inbox</button>
+
+  <button type="button"  (click)='Outbox()'
+  [ngClass]=" {
+    btn: true,
+    'btn-primary': true,
+    active: outboxIsActive
+  }"
+  >Outbox</button>
+</div>
+
+
+
+<div class='container-fluid' *ngIf='messageToDisplay && messageToDisplay.length > 0'>
+<app-data-table [messageToDisplay]='messageToDisplay' (messageIdToDelete)='Delete($event)' ></app-data-table>
+</div>
+
+<div *ngIf='messageToDisplay.length == []'>
+   No Messages.
+</div>

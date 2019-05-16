@@ -1,0 +1,37 @@
+<br/>
+<div class='container-fluid' *ngIf='messageToDisplay && messageToDisplay.length > 0' style='margin-top: 10px;'>
+    {{'innnnn'}}
+<table class="table table-striped">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col" sortable="name">Message</th>
+      <th scope="col" sortable="area">From/To</th>
+      <th scope="col" sortable="population">Sent/Recieved</th>
+      <th scope="col" sortable="population" >Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let message of messageToDisplay">
+      <th scope="row">{{ message.ID }}</th>
+      <td>
+        {{message.Content}}
+      </td>
+      <td>
+          <img [src]='message.SenderPhotoURL' class="mr-2" style="width: 20px">
+        {{ message.SenderKnownAs}}</td>
+      <td>{{ message.MessageSent}}</td>
+      <td>
+        <button type="button" class='btn btn-primary' (click)='Delete(message.ID)' style='margin-right: 10px'>
+          Delete
+        </button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+
+<div *ngIf='messageToDisplay.length == 0'>
+    <app-spinner></app-spinner>
+</div>
