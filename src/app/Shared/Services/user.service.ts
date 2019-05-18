@@ -1,3 +1,4 @@
+import { PaginatedResult } from './../../Model/Pagination';
 import { Like } from './../../Model/Like';
 import { environment } from './../../../environments/environment';
 
@@ -5,8 +6,8 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { User } from '../../Model/User';
 import { Observable, throwError as observableThrowError} from 'rxjs';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { catchError } from 'rxjs/operators';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
+import { catchError, map } from 'rxjs/operators';
 import { BadRequestError } from '../../Errors/BadRequestError';
 import { NotFoundError } from '../../Errors/NotFoundError';
 import { UnAuthorizedError } from '../../Errors/UnAuthorizedError';
@@ -36,11 +37,38 @@ private httpOptions = {
   /**
   * Gets all Users, Returns Observable<User[]>
   */
-  GetUsers(): Observable<Array<User>> {
+  GetUsers(page?, itemsPerPage?): Observable<PaginatedResult<Array<User>>> {
+
+    const paginatedResult: PaginatedResult<User[]> = new PaginatedResult<Array<User>>();
+
+    // send http parameters: will map to our query string in the API method.
+    let queryParams = new HttpParams();
+
+    if (page !== null && itemsPerPage !== null) {
+      // append the params
+      queryParams = queryParams.append('pageNumber', page);
+      queryParams = queryParams.append('pageSize', itemsPerPage);
+    }
+
+    const options = {
+      params: queryParams,
+      header: this.httpOptions.headers
+    };
+
     const url = `${this.baseUrl}/${this.allUsers}`;
 
-    return this.http.get<Array<User>>(url, this.httpOptions)
+    return this.http.get<Array<User>>(url, { observe: 'response', headers: options.header, params: options.params })
     .pipe(
+      map( response => {
+        paginatedResult.result = response.body;
+
+        // check if response header contains pagination information
+        if (response.headers.get('pagination') !== null) {
+          paginatedResult.pagination = JSON.parse(response.headers.get('pagination')); // string to json object
+        }
+
+        return paginatedResult;
+      }),
       catchError(this.handleError)
     );
   }

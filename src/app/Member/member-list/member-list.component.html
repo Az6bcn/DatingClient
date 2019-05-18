@@ -4,4 +4,19 @@
 
 <div *ngIf='Users && Users.length > 0' >
     <app-member-card [userModel]=Users ></app-member-card>
+
+
+    <div class="row">
+      <div class="col-xs-12 col-12  d-flex justify-content-center">
+        <pagination [totalItems]="paginationInfo.totalItems"
+        [itemsPerPage]= 'paginationInfo.itemsPerPage'
+        [totalItems] = 'paginationInfo.totalPages'
+        [(ngModel)]="paginationInfo.currentPage"
+        (pageChanged)="PageChanged($event)">
+      </pagination>
+      </div>
+    </div>
 </div>
+
+
+

@@ -7,7 +7,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HomeComponent } from './Home/Home.component';
 import { RegisterComponent } from './Register/Register.component';
 import { RouterModule } from '@angular/router';
@@ -36,8 +36,8 @@ import { PhotoService } from './Shared/Services/photo.service';
 import { DataSharedService } from './Shared/Services/DataSharedService';
 import { ImageFileUploaderComponent } from './Shared/Components/image-file-uploader/image-file-uploader.component';
 import { MyDatePickerModule } from 'mydatepicker';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { DataTableComponent } from './Shared/data-table/data-table.component';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 
 
 
@@ -68,12 +68,14 @@ import { DataTableComponent } from './Shared/data-table/data-table.component';
                  ],
   imports: [BrowserModule,
     HttpClientModule,
+    FormsModule, // needed for [(ngModel)] to work
     ReactiveFormsModule,
     NotifierModule,
     NgxGalleryModule,
     FileUploadModule,
     MyDatePickerModule,
-    NgbModule,
+    //PaginationModule,
+    PaginationModule.forRoot(),
     JwtModule.forRoot({
       config: {
           tokenGetter: () => {
