@@ -37,8 +37,10 @@ private httpOptions = {
   /**
   * Gets all Users, Returns Observable<User[]>
   */
-  GetUsers(page?, itemsPerPage?): Observable<PaginatedResult<Array<User>>> {
+  GetUsers(page?, itemsPerPage?, minAge?, maxAge?, gender?  ): Observable<PaginatedResult<Array<User>>> {
 
+      console.log(minAge);
+      console.log(maxAge);
     const paginatedResult: PaginatedResult<User[]> = new PaginatedResult<Array<User>>();
 
     // send http parameters: will map to our query string in the API method.
@@ -46,8 +48,15 @@ private httpOptions = {
 
     if (page !== null && itemsPerPage !== null) {
       // append the params
-      queryParams = queryParams.append('pageNumber', page);
-      queryParams = queryParams.append('pageSize', itemsPerPage);
+      queryParams = queryParams.append('PageNumber', page);
+      queryParams = queryParams.append('PageSize', itemsPerPage);
+    }
+
+    if (minAge != null || maxAge != null || gender != null) {
+
+      queryParams = queryParams.append('MinAge', minAge);
+      queryParams = queryParams.append('MaxAge', maxAge);
+      queryParams = queryParams.append('Gender', gender);
     }
 
     const options = {

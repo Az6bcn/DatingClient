@@ -38,7 +38,7 @@ import { ImageFileUploaderComponent } from './Shared/Components/image-file-uploa
 import { MyDatePickerModule } from 'mydatepicker';
 import { DataTableComponent } from './Shared/data-table/data-table.component';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
-
+import {SelectModule} from 'ng-select';
 
 
 
@@ -74,6 +74,7 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
     NgxGalleryModule,
     FileUploadModule,
     MyDatePickerModule,
+    SelectModule,
     //PaginationModule,
     PaginationModule.forRoot(),
     JwtModule.forRoot({
