@@ -1,3 +1,4 @@
+import { environment } from './../../../environments/environment';
 import { BadRequestError } from './../../Errors/BadRequestError';
 import { NotFoundError } from './../../Errors/NotFoundError';
 import { UnAuthorizedError } from './../../Errors/UnAuthorizedError';
@@ -5,6 +6,7 @@ import { AppError } from './../../Errors/AppError';
 import { ForbiddenError } from './../../Errors/ForbiddenError';
 import { RegisterModel } from './../../Model/RegisterModel';
 import { Login } from './../../Model/Login';
+
 
 import {throwError as observableThrowError,  Observable } from 'rxjs';
 import {
@@ -17,7 +19,7 @@ import { map, catchError } from 'rxjs/operators';
 
 @Injectable()
 export class AuthService {
-  private readonly baseUrl = 'http://172.16.172.129:5000/api';
+  private readonly baseUrl = environment.baseURL;
   private Login = 'auth/login';
   private Register = 'auth/register';
   constructor(private readonly http: HttpClient) {}

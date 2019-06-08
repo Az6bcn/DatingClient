@@ -40,7 +40,9 @@ import { DataTableComponent } from './Shared/data-table/data-table.component';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import {SelectModule} from 'ng-select';
 
-
+export function tokenGetter() {
+  return localStorage.getItem('Token');
+}
 
 @NgModule({
   declarations: [AppComponent,
@@ -79,10 +81,8 @@ import {SelectModule} from 'ng-select';
     PaginationModule.forRoot(),
     JwtModule.forRoot({
       config: {
-          tokenGetter: () => {
-            return localStorage.getItem('Token');
-          }
-      }
+          tokenGetter: tokenGetter
+        }
   }), BsDropdownModule.forRoot(), RouterModule.forRoot([
     {path: '', component: HomeComponent},
     {path: 'members/:id', component: MemberDetailComponent, resolve: {userDetail: UserDetailResolverService}},
@@ -95,4 +95,7 @@ import {SelectModule} from 'ng-select';
   providers: [AuthService, JwtHelperService, AuthGuardService, UserDetailResolverService, PhotoService, DataSharedService],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule {
+
+
+}

@@ -22,6 +22,7 @@ export class MemberListComponent implements OnInit {
  isLoading$ = new BehaviorSubject<boolean>(true);
  filterForm: FormGroup;
  genderOption;
+ infinity = 'inifinity';
 
   constructor(private userService: UserService,
               private formBuilder: FormBuilder) { }
