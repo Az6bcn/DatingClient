@@ -1,3 +1,4 @@
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -8,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 export class HomeComponent implements OnInit {
   showRegister = false;
 
-  constructor() {}
+  constructor(private jwtHelperService: JwtHelperService) {}
 
   ngOnInit() {
   }
@@ -19,5 +20,9 @@ export class HomeComponent implements OnInit {
 
   canceledEvent(canceledEventValue: boolean) {
     this.showRegister = canceledEventValue;
+  }
+
+  isLoggedIn (): boolean {
+    return this.jwtHelperService.tokenGetter() != null ? true : false;
   }
 }

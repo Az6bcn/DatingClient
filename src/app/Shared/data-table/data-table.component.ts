@@ -15,7 +15,7 @@ export class DataTableComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log(this.messageType);
+    (this.messageType);
   }
 
   Delete(id: number) {

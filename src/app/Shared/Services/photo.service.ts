@@ -61,7 +61,7 @@ Save(formdata: FormData, userID: number): Observable<PhotoForCreationDTO> {
 private handleError(error: HttpErrorResponse) {
   // /* Handling Expected Error (Imagine we sending invalid data to the Server response will be Bad Request, status code 400)
            // check the status of the response  */
-  console.log(error);
+  (error);
   if (error.status === 400) {
     // return Observable that includes an error and throw an error specific to our application domain type error (BadRequestError)
     return observableThrowError(new BadRequestError(error));

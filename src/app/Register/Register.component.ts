@@ -34,7 +34,7 @@ export class RegisterComponent implements OnInit {
   }
 
   register(user: RegisterModel) {
-    console.log(user);
+    (user);
     user.Dateofbirth = user.Dateofbirth['jsdate'];
     this.authService.register(user).subscribe(response => {
       this.notifierService.notify('success', 'registered successfully');
@@ -104,7 +104,7 @@ export class RegisterComponent implements OnInit {
   }
 
   get userregister() {
-    console.log(this.registerForm.get('userRegister'));
+    (this.registerForm.get('userRegister'));
     return this.registerForm.get('userRegister');
   }
   clearDate(): void {

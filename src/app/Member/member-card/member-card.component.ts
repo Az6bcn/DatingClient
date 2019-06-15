@@ -15,11 +15,10 @@ export class MemberCardComponent implements OnInit {
     private notifierService: NotifierService) { }
 
   ngOnInit() {
-    console.log('model', this.userModel);
   }
 
   SendLike(likeeUserID: number, userKnownAs: string) {
-    console.log(likeeUserID);
+    (likeeUserID);
     // get current userID
     const currentUserID = this.userService.GetCurrentUserID();
 

@@ -29,9 +29,8 @@ export class MemberListComponent implements OnInit {
 
   ngOnInit() {
     this.genderOption = new GenderOption().getGenderOptions();
-    console.log('genderOption', this.genderOption);
     this.LoadFilterForm(this.formBuilder);
-    console.log(this.filterForm.value);
+    (this.filterForm.value);
     this.userService.GetUsers()
     .pipe(
       finalize( () => this.isLoading$.next(false))
@@ -50,7 +49,7 @@ export class MemberListComponent implements OnInit {
   }
 
   PageChanged(page: number) {
-    console.log(page);
+    (page);
     this.paginationInfo.currentPage = page['page'];
     this.paginationInfo.itemsPerPage = page['itemsPerPage'];
 
@@ -71,7 +70,6 @@ export class MemberListComponent implements OnInit {
         this.Users = response.result;
         this.paginationInfo = response.pagination;
       });
-    console.log('filter data', filterFormData);
   }
 
   ResetFilter() {

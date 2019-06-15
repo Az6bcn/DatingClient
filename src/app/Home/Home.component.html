@@ -1,4 +1,4 @@
-<div style="text-align: center">
+<div style="text-align: center" *ngIf='!isLoggedIn()'>
 
   <h1>
     Find your match
@@ -19,4 +19,11 @@
     <app-Register (canceledEvent)=canceledEvent($event)></app-Register>
   </div>
 </div>
+</div>
+
+
+<div style="text-align: center" *ngIf='isLoggedIn()'>
+  <h3>
+    Click on MATCHES tab to find your match.
+  </h3>
 </div>

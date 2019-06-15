@@ -35,7 +35,6 @@ export class MessagesComponent implements OnInit {
         })
       )
       .subscribe(resp => {
-        console.log('unInit', resp);
         this.messageToDisplay = resp;
       });
   }
@@ -62,7 +61,6 @@ export class MessagesComponent implements OnInit {
 
     this.messageService.GetInboxMessages(this.userID)
     .subscribe(resp => {
-      console.log('in', resp);
       this.messageToDisplay = resp;
     });
   }
@@ -83,7 +81,6 @@ export class MessagesComponent implements OnInit {
   }
 
   onSort(event ) {
-    console.log('sort', event);
   }
 
   Delete(messageID: number) {

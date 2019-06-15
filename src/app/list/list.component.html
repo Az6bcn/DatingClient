@@ -22,7 +22,7 @@
 
 <div class='container' *ngIf='isLiker'>
   <div class='container-fluid'>
-      <h2>Members who I have liked me : {{likedByUser.length}}</h2>
+      <h2>Members who I have liked : {{likedByUser.length}}</h2>
     <div class="row">
       <div class='col-lg-2 col-md-3 col-sm-6 mt-2 active' *ngFor='let user of likedByUser'>
         <div class='card mb-4'>
@@ -44,7 +44,7 @@
 
 <div class='container' *ngIf='isLikee'>
   <div class='container-fluid'>
-    <h2>Members who I liked me : {{likersOfUser.length}}</h2>
+    <h2>Members who liked me : {{likersOfUser.length}}</h2>
     <div class="row">
       <div class='col-lg-2 col-md-3 col-sm-6 mt-2' *ngFor='let user of likersOfUser'>
         <div class='card mb-4'>

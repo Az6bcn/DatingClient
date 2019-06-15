@@ -36,7 +36,7 @@ export class NavComponent implements OnInit {
 
   ngOnInit() {
     this.loadForm(this.fb);
-    console.log(this.jwtHelperService.tokenGetter());
+    (this.jwtHelperService.tokenGetter());
     this.isLoggedIn = this.jwtHelperService.tokenGetter() != null ? true : false;
 
     // tslint:disable-next-line:curly
@@ -71,7 +71,7 @@ export class NavComponent implements OnInit {
   }
 
   signIn(userLoginFormValue: Login) {
-    console.log(userLoginFormValue);
+    (userLoginFormValue);
     this.authService
       .login(userLoginFormValue)
       .subscribe((response: boolean) => {
@@ -128,7 +128,7 @@ export class NavComponent implements OnInit {
       const decodedToken = this.jwtHelperService.decodeToken(token);
       this.userID = decodedToken.nameid;
       this.mainPhotoUrl = decodedToken.MainPhotoURL;
-      console.log(decodedToken);
+      (decodedToken);
       userName = decodedToken.unique_name;
     }
     return userName;

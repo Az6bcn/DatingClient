@@ -20,7 +20,6 @@ export class MemberDetailComponent implements OnInit {
         .subscribe( data => {
         if (data.userDetail) {
           this.UserDetail = data.userDetail;
-          console.log('details:', this.UserDetail);
         }
       });
     }
